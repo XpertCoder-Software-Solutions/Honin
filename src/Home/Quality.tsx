@@ -37,8 +37,8 @@ const qualityItems: Array<{
 
 function QualityIcon({ Icon }: { Icon: LucideIcon }) {
   return (
-    <span className="flex h-[80px] w-[80px] items-center justify-center rounded-[18px] bg-[#D5A125] text-[#0F3D27] shadow-[0_16px_24px_rgba(15,61,39,0.2)] sm:rounded-[20px]">
-      <Icon className="h-9 w-9" strokeWidth={2} />
+    <span className="flex h-[66px] w-[66px] items-center justify-center rounded-[16px] bg-[#D5A125] text-[#0F3D27] shadow-[0_16px_24px_rgba(15,61,39,0.2)] sm:h-[74px] sm:w-[74px] sm:rounded-[20px] lg:h-[80px] lg:w-[80px]">
+      <Icon className="h-8 w-8 sm:h-9 sm:w-9" strokeWidth={2} />
     </span>
   )
 }
@@ -51,15 +51,15 @@ function Quality() {
     >
       <div className="mx-auto w-full max-w-[1440px]">
         <header className="mx-auto max-w-[1120px] text-center">
-          <p className="font-black text-[#D5A125] text-[20px]">
+          <p className="text-[18px] font-black text-[#D5A125] lg:text-[20px]">
             لماذا تختارنا
           </p>
 
-          <h2 className="mt-3 text-[60px] font-black leading-tight text-[#0F3D27]">
+          <h2 className="mt-3 text-[34px] font-black leading-tight text-[#0F3D27] sm:text-[44px] md:text-[52px] lg:text-[60px]">
             نتميز بالجودة والاحترافية
           </h2>
 
-          <p className="mx-auto mt-6 max-w-[920px] text-[20px] font-medium leading-8 text-[#667085] lg:mt-9">
+          <p className="mx-auto mt-5 max-w-[920px] text-[16px] font-medium leading-8 text-[#667085] sm:mt-6 sm:text-[18px] lg:mt-9 lg:text-[20px]">
             نحن نضع ثقة عملائنا في المقام الأول ونسعى دائماً لتقديم أفضل الخدمات
           </p>
         </header>
@@ -71,18 +71,18 @@ function Quality() {
           {qualityItems.map(({ title, description, Icon }) => (
             <article
               key={title}
-              className="flex min-h-auto flex-col items-center rounded-[26px] bg-white px-6 py-10 text-center shadow-[0_22px_44px_rgba(15,61,39,0.16)] ring-1 ring-black/5 lg:rounded-[30px] lg:px-8"
+              className="flex flex-col items-center rounded-[22px] bg-white px-5 py-8 text-center shadow-[0_22px_44px_rgba(15,61,39,0.16)] ring-1 ring-black/5 sm:rounded-[26px] sm:px-6 sm:py-10 lg:rounded-[30px] lg:px-8"
             >
               <QualityIcon Icon={Icon} />
 
               <h3
-                className="mt-8 text-[30px] font-black leading-tight"
+                className="mt-6 text-[24px] font-black leading-tight sm:mt-8 sm:text-[28px] lg:text-[30px]"
                 style={{ color: darkGreen }}
               >
                 {title}
               </h3>
 
-              <p className="mt-8 min-h-[64px] text-[18px] font-medium leading-8 text-[#667085]">
+              <p className="mt-5 min-h-0 text-[16px] font-medium leading-7 text-[#667085] sm:mt-8 sm:min-h-[64px] sm:text-[18px] sm:leading-8">
                 {description}
               </p>
 

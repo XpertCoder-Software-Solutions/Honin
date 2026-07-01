@@ -67,10 +67,10 @@ function Hero() {
 
   return (
     <section
-      className="relative z-10 min-h-[900px] w-full overflow-visible bg-[#07110d] text-white"
+      className="relative z-10 min-h-[760px] w-full overflow-visible bg-[#07110d] text-white md:min-h-[820px] lg:min-h-[900px]"
       dir="rtl"
     >
-      <div className="absolute inset-x-0 top-0 h-[900px] overflow-hidden">
+      <div className="absolute inset-x-0 top-0 h-[620px] overflow-hidden sm:h-[700px] md:h-[760px] lg:h-[900px]">
         {heroItems.map((item, index) => (
           <img
             key={item.title}
@@ -101,35 +101,35 @@ function Hero() {
         />
       </div>
 
-      <div className="relative z-10 mx-auto flex min-h-[900px] w-full max-w-[1780px] flex-col px-4 pt-[132px] sm:px-8 sm:pt-[150px] lg:px-[58px] lg:pt-[280px]">
+      <div className="relative z-10 mx-auto flex min-h-[760px] w-full max-w-[1780px] flex-col px-4 pb-14 pt-[126px] sm:px-8 sm:pt-[150px] md:min-h-[820px] lg:min-h-[900px] lg:px-[58px] lg:pb-0 lg:pt-[280px]">
         <div className="flex flex-1 items-center justify-start">
           <div
             key={activeItem.title}
             className="hero-content-enter max-w-[760px] text-right lg:mb-12"
           >
-            <p className="text-[18px] font-medium leading-8 text-white/82 sm:text-[22px]">
+            <p className="text-[16px] font-medium leading-7 text-white/82 sm:text-[20px] lg:text-[22px]">
               {activeItem.label}
             </p>
 
-            <h1 className="mt-4 text-[72px] font-black leading-[90px] text-white">
+            <h1 className="mt-4 text-[38px] font-black leading-[1.18] text-white sm:text-[50px] md:text-[60px] lg:text-[72px] lg:leading-[90px]">
               {activeItem.title}
             </h1>
 
-            <p className="mt-8 text-[24px] font-medium text-white/78">
+            <p className="mt-5 text-[18px] font-medium leading-8 text-white/78 sm:mt-7 sm:text-[22px] lg:mt-8 lg:text-[24px]">
               {activeItem.subtitle}
             </p>
 
-            <div className="mt-10 flex flex-col items-stretch gap-4 sm:flex-row sm:items-center sm:justify-start">
+            <div className="mt-8 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-start lg:mt-10 lg:gap-4">
               <a
                 href="#"
-                className="inline-flex min-h-[66px] items-center justify-center rounded-full bg-[#D5A125] px-10 text-[18px] font-black text-[#0F3D27] shadow-[0_22px_44px_rgba(0,0,0,0.22)] transition hover:-translate-y-1 hover:bg-[#E7BC2A] focus:outline-none focus:ring-4 focus:ring-[#D5A125]/35 sm:min-w-[236px]"
+                className="inline-flex min-h-[54px] items-center justify-center rounded-full bg-[#D5A125] px-7 text-[16px] font-black text-[#0F3D27] shadow-[0_22px_44px_rgba(0,0,0,0.22)] transition hover:-translate-y-1 hover:bg-[#E7BC2A] focus:outline-none focus:ring-4 focus:ring-[#D5A125]/35 sm:min-w-[216px] sm:px-8 sm:text-[17px] lg:min-h-[66px] lg:min-w-[236px] lg:px-10 lg:text-[18px]"
               >
                 طلب عرض سعر
               </a>
 
               <a
                 href="#"
-                className="inline-flex min-h-[66px] items-center justify-center rounded-full border border-white/40 bg-white/10 px-10 text-[18px] font-black text-white backdrop-blur-sm transition hover:-translate-y-1 hover:bg-white/18 focus:outline-none focus:ring-4 focus:ring-white/25 sm:min-w-[236px]"
+                className="inline-flex min-h-[54px] items-center justify-center rounded-full border border-white/40 bg-white/10 px-7 text-[16px] font-black text-white backdrop-blur-sm transition hover:-translate-y-1 hover:bg-white/18 focus:outline-none focus:ring-4 focus:ring-white/25 sm:min-w-[216px] sm:px-8 sm:text-[17px] lg:min-h-[66px] lg:min-w-[236px] lg:px-10 lg:text-[18px]"
               >
                 اكتشف المزيد
               </a>
@@ -137,7 +137,7 @@ function Hero() {
           </div>
         </div>
 
-        <div className="mb-8 flex justify-center gap-3 lg:mb-10" dir="rtl">
+        <div className="mb-6 mt-8 flex justify-center gap-3 lg:mb-10 lg:mt-0" dir="rtl">
           {heroItems.map((item, index) => (
             <button
               key={item.title}
@@ -153,7 +153,7 @@ function Hero() {
           ))}
         </div>
 
-        <div className="relative z-20 -mt-10 grid translate-y-24 grid-cols-1 gap-6 md:grid-cols-3 lg:-mt-12 lg:translate-y-24 lg:gap-10" dir="rtl">
+        <div className="relative z-20 mt-8 grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-5 lg:-mt-12 lg:translate-y-24 lg:gap-10" dir="rtl">
           {heroItems.map(({ cardTitle, cardDescription, Icon }, index) => {
             const isActive = index === activeIndex
 
@@ -163,33 +163,33 @@ function Hero() {
                 type="button"
                 onClick={() => setActiveIndex(index)}
                 onMouseEnter={() => setActiveIndex(index)}
-                className={`group min-h-[224px] rounded-[18px] bg-white p-7 text-right shadow-[0_34px_70px_rgba(0,0,0,0.38)] outline-none transition hover:-translate-y-1 focus:ring-4 focus:ring-[#D5A125]/40 ${
+                className={`group min-h-[168px] rounded-[18px] bg-white p-5 text-right shadow-[0_34px_70px_rgba(0,0,0,0.38)] outline-none transition hover:-translate-y-1 focus:ring-4 focus:ring-[#D5A125]/40 sm:p-6 lg:min-h-[224px] lg:p-7 ${
                   isActive ? 'hero-card-active' : ''
                 }`}
                 dir="rtl"
               >
                 <div className="flex items-start justify-between gap-4">
                   <span
-                    className={`flex h-[80px] w-[80px] shrink-0 items-center justify-center rounded-[16px] transition ${
+                    className={`flex h-[58px] w-[58px] shrink-0 items-center justify-center rounded-[14px] transition sm:h-[66px] sm:w-[66px] lg:h-[80px] lg:w-[80px] lg:rounded-[16px] ${
                       isActive
                         ? 'bg-[#D5A125] text-[#0F3D27]'
                         : 'bg-[#0F5A39] text-white group-hover:bg-[#D5A125] group-hover:text-[#0F3D27]'
                     }`}
                   >
-                    <Icon className="h-8 w-8" strokeWidth={2} />
+                    <Icon className="h-7 w-7 lg:h-8 lg:w-8" strokeWidth={2} />
                   </span>
 
-                  <h2 className="max-w-[330px] text-[30px] font-black leading-tight text-[#0F3D27]">
+                  <h2 className="max-w-[330px] text-[22px] font-black leading-tight text-[#0F3D27] sm:text-[24px] lg:text-[30px]">
                     {cardTitle}
                   </h2>
                 </div>
 
-                <p className="mt-8 text-[18px] font-medium leading-8 text-[#697282]">
+                <p className="mt-5 text-[15px] font-medium leading-7 text-[#697282] sm:text-[16px] lg:mt-8 lg:text-[18px] lg:leading-8">
                   {cardDescription}
                 </p>
 
                 <span
-                  className={`mt-8 block h-[5px] rounded-full transition ${
+                  className={`mt-5 block h-[5px] rounded-full transition lg:mt-8 ${
                     isActive ? 'bg-[#D5A125]' : 'bg-[#E4E7EC] group-hover:bg-[#D5A125]/80'
                   }`}
                 />

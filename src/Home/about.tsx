@@ -87,23 +87,24 @@ function AboutCard({ eyebrow, title, image, Icon, imageClass }: (typeof aboutCar
 function About() {
   return (
     <section
+      id="about"
       className="w-full overflow-hidden bg-[#F8F4E6] px-4 py-16 sm:px-6 sm:py-20 md:px-8 lg:px-[50px] lg:pb-[100px] lg:pt-[160px]"
       dir="rtl"
     >
       <div className="mx-auto w-full max-w-[1320px]">
         <header className="mx-auto max-w-[1440px] text-center">
-          <p className="mx-auto inline-flex min-h-[46px] items-center justify-center gap-2 rounded-full border border-[#D5A125]/35 px-7 text-[14px] font-medium text-[#2C2C2C] bg-[#E7BC2A]/10">
+          <p className="mx-auto inline-flex min-h-[42px] items-center justify-center gap-2 rounded-full border border-[#D5A125]/35 bg-[#E7BC2A]/10 px-5 text-[13px] font-medium text-[#2C2C2C] sm:min-h-[46px] sm:px-7 sm:text-[14px]">
             <span className="h-2.5 w-2.5 rounded-full bg-[#E7BC2A]" />
             نبذة عن شركة حنين
           </p>
 
-          <h2 className="mx-auto mt-7 max-w-[1440px] text-center text-[60px] font-black leading-[1.28] text-[#252525]">
+          <h2 className="mx-auto mt-6 max-w-[1440px] text-center text-[32px] font-black leading-[1.25] text-[#252525] sm:mt-7 sm:text-[42px] md:text-[50px] lg:text-[60px] lg:leading-[1.28]">
             خبرة أكثر من{' '}
             <span className="text-[#D5A125]">40 عاماً</span>
             <span className="block w-full text-center">في تنفيذ المشاريع والخدمات المتكاملة</span>
           </h2>
 
-          <p className="mx-auto mt-7 max-w-[820px] text-[18px] font-medium leading-8 text-[#777777] lg:mt-9 lg:leading-10">
+          <p className="mx-auto mt-5 max-w-[820px] text-[16px] font-medium leading-8 text-[#777777] sm:mt-7 sm:text-[18px] lg:mt-9 lg:leading-10">
             تعد شركة حنين من الشركات الرائدة والمتخصصة في تقديم مجموعة متكاملة
             من الخدمات في مجالات المقاولات والأعمال المساحية، والزراعة وتنسيق
             الحدائق، ومكافحة الآفات والحشرات.
@@ -116,12 +117,12 @@ function About() {
           ))}
         </div>
 
-        <div className="mx-auto mt-16 w-full max-w-[896px] rounded-[22px] bg-[#145538] p-12 text-white shadow-[0_24px_54px_rgba(15,61,39,0.18)] sm:rounded-[24px] lg:mt-[80px]">
-          <p className="mx-auto text-start text-[18px] font-medium leading-9 text-white/82 lg:leading-10">
-         منذ تأسيس الشركة عام 1401هـ عملت حنين على تقديم حلول متكاملة تعتمد على الخبرة الطويلة والكفاءات المهنية المتخصصة من المهندسين والفنيين، إضافة إلى استخدام أحدث الأجهزة والمعدات لضمان تنفيذ المشاريع وفق أعلى معايير الجودة.
-         </p>
+        <div className="mx-auto mt-12 w-full max-w-[896px] rounded-[22px] bg-[#145538] p-6 text-white shadow-[0_24px_54px_rgba(15,61,39,0.18)] sm:mt-16 sm:rounded-[24px] sm:p-8 lg:mt-[80px] lg:p-12">
+          <p className="mx-auto text-start text-[16px] font-medium leading-8 text-white/82 sm:text-[18px] lg:leading-10">
+            منذ تأسيس الشركة عام 1401هـ عملت حنين على تقديم حلول متكاملة تعتمد على الخبرة الطويلة والكفاءات المهنية المتخصصة من المهندسين والفنيين، إضافة إلى استخدام أحدث الأجهزة والمعدات لضمان تنفيذ المشاريع وفق أعلى معايير الجودة.
+          </p>
 
-          <p className="mx-auto mt-4 text-start text-[18px] font-medium leading-9 text-white/62 lg:leading-10">
+          <p className="mx-auto mt-4 text-start text-[16px] font-medium leading-8 text-white/62 sm:text-[18px] lg:leading-10">
             نحن نلتزم بتقديم خدمات احترافية تلبي احتياجات عملائنا في القطاعين
             الحكومي والخاص، مع الحرص على الدقة والالتزام بالمواعيد وتحقيق أفضل
             النتائج.
@@ -130,13 +131,13 @@ function About() {
           <span className="my-6 block h-px w-full bg-white/36" />
 
           <div className="flex flex-col-reverse items-center justify-between gap-7 md:flex-row">
-            <div className="flex items-center gap-5 text-right" dir="rtl">
-              <span className="flex h-[64px] w-[64px] shrink-0 items-center justify-center rounded-[16px] bg-[#E9C229] text-white shadow-[0_14px_28px_rgba(0,0,0,0.12)]">
-                <BadgeCheck className="h-8 w-8" strokeWidth={2} />
+            <div className="flex items-center gap-4 text-right sm:gap-5" dir="rtl">
+              <span className="flex h-[56px] w-[56px] shrink-0 items-center justify-center rounded-[14px] bg-[#E9C229] text-white shadow-[0_14px_28px_rgba(0,0,0,0.12)] sm:h-[64px] sm:w-[64px] sm:rounded-[16px]">
+                <BadgeCheck className="h-7 w-7 sm:h-8 sm:w-8" strokeWidth={2} />
               </span>
 
               <div>
-                <h3 className="text-[20px] font-black leading-tight text-white">
+                <h3 className="text-[18px] font-black leading-tight text-white sm:text-[20px]">
                   معتمدون وموثوقون
                 </h3>
                 <p className="mt-1 text-[14px] font-medium leading-7 text-white/70">

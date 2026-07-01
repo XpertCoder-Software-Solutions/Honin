@@ -33,41 +33,41 @@ function Statistics() {
     >
       <div className="mx-auto w-full max-w-[1810px]">
         <header className="mx-auto max-w-[980px] text-center">
-          <h2 className="font-black leading-tight text-[60px]">
+          <h2 className="text-[34px] font-black leading-tight sm:text-[44px] md:text-[52px] lg:text-[60px]">
             أرقامنا تتحدث عن نفسها
           </h2>
 
-          <p className="mx-auto mt-6 max-w-[780px] text-[20px] font-medium leading-8 text-white/62 ">
+          <p className="mx-auto mt-5 max-w-[780px] text-[16px] font-medium leading-8 text-white/62 sm:mt-6 sm:text-[18px] lg:text-[20px]">
             إنجازات تعكس التزامنا وتفانينا في خدمة عملائنا
           </p>
         </header>
 
         <div
-          className="mt-20 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8 xl:gap-10"
+          className="mt-12 grid grid-cols-1 gap-5 sm:mt-16 sm:grid-cols-2 sm:gap-6 lg:mt-20 lg:grid-cols-4 lg:gap-8 xl:gap-10"
           dir="ltr"
         >
           {statistics.map((statistic) => (
             <article
               key={statistic.label}
-              className="flex min-h-[300px] flex-col items-center justify-center rounded-[28px] border-2 border-white/18 bg-white/10 px-6 py-10 text-center shadow-[0_22px_48px_rgba(4,35,21,0.12)] backdrop-blur-sm sm:min-h-[330px] lg:min-h-[374px] xl:rounded-[30px]"
+              className="flex min-h-[230px] flex-col items-center justify-center rounded-[24px] border-2 border-white/18 bg-white/10 px-6 py-8 text-center shadow-[0_22px_48px_rgba(4,35,21,0.12)] backdrop-blur-sm sm:min-h-[300px] sm:py-10 lg:min-h-[374px] xl:rounded-[30px]"
             >
               <span
-                className="text-[60px] leading-none"
+                className="text-[46px] leading-none sm:text-[54px] lg:text-[60px]"
                 aria-hidden="true"
               >
                 {statistic.icon}
               </span>
 
-              <p className="mt-7 text-[60px] font-black leading-none text-[#D5A125]">
+              <p className="mt-6 text-[44px] font-black leading-none text-[#D5A125] sm:mt-7 sm:text-[54px] lg:text-[60px]">
                 {statistic.value}
               </p>
 
-              <h3 className="mt-11 text-[24px] font-black leading-tight text-white">
+              <h3 className="mt-7 text-[22px] font-black leading-tight text-white sm:mt-9 sm:text-[24px] lg:mt-11">
                 {statistic.label}
               </h3>
 
               <span
-                className="mt-10 block h-1 w-[150px] rounded-full bg-[#D5A125] sm:w-[180px]"
+                className="mt-7 block h-1 w-[130px] rounded-full bg-[#D5A125] sm:mt-10 sm:w-[180px]"
                 aria-hidden="true"
               />
             </article>

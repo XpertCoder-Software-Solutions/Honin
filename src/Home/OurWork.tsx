@@ -42,6 +42,7 @@ const projects = [
 function OurWork() {
   return (
     <section
+      id="work"
       className="w-full overflow-hidden bg-[#F8F4E6] px-4 py-16 sm:px-6 sm:py-20 md:px-8 lg:px-[50px] lg:py-28 xl:py-[100px]"
       dir="rtl"
     >
@@ -51,8 +52,8 @@ function OurWork() {
             أعمالنا
           </p>
 
-          <h2 className="mx-auto mt-3 max-w-[340px] text-[60px] font-black leading-tight text-[#0F3D27] sm:max-w-none lg:mt-4">
-            <span className="block sm:inline text-[60px]">اعمال نفخر بإنجازها</span>
+          <h2 className="mx-auto mt-3 max-w-[340px] text-[34px] font-black leading-tight text-[#0F3D27] sm:max-w-none sm:text-[44px] md:text-[52px] lg:mt-4 lg:text-[60px]">
+            <span className="block sm:inline">اعمال نفخر بإنجازها</span>
           </h2>
 
           <p className="mx-auto mt-5 max-w-[760px] text-base font-medium leading-8 text-[#697282] sm:text-lg lg:mt-7 lg:text-[20px] lg:leading-10">
@@ -103,12 +104,12 @@ function OurWork() {
                   {project.category}
                 </span>
 
-                <h3 className="mt-5 max-w-full text-[28px] font-black leading-tight text-white sm:mt-6 sm:text-[38px] lg:mt-7 lg:text-[44px] xl:text-[50px]">
+                <h3 className="mt-4 max-w-full text-[24px] font-black leading-tight text-white sm:mt-6 sm:text-[32px] lg:mt-7 lg:text-[40px] xl:text-[46px]">
                   {project.title}
                 </h3>
 
-                <span className="mt-4 inline-flex items-center gap-3 text-lg font-black text-white sm:mt-5 sm:text-2xl lg:text-[26px]">
-                  <ExternalLink className="h-6 w-6 sm:h-8 sm:w-8" aria-hidden="true" />
+                <span className="mt-4 inline-flex items-center gap-2 text-[16px] font-black text-white sm:mt-5 sm:gap-3 sm:text-xl lg:text-[24px]">
+                  <ExternalLink className="h-5 w-5 sm:h-7 sm:w-7" aria-hidden="true" />
                   عرض المشروع
                 </span>
               </div>

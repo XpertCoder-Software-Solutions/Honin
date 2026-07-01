@@ -45,23 +45,23 @@ function VisionCard({
   Icon: LucideIcon
 }) {
   return (
-    <article className="flex min-h-[360px] flex-col rounded-[24px] bg-white px-6 py-8 text-right shadow-[0_28px_70px_rgba(15,61,39,0.16)] ring-1 ring-black/5 sm:min-h-[420px] sm:rounded-[28px] sm:px-10 sm:py-10 lg:min-h-[476px] lg:rounded-[30px] lg:px-[64px] lg:py-[60px]">
+    <article className="flex min-h-[320px] flex-col rounded-[24px] bg-white px-6 py-8 text-right shadow-[0_28px_70px_rgba(15,61,39,0.16)] ring-1 ring-black/5 sm:min-h-[380px] sm:rounded-[28px] sm:px-10 sm:py-10 lg:min-h-[476px] lg:rounded-[30px] lg:px-[64px] lg:py-[60px]">
       <div className="flex flex-col items-start">
         <IconBox Icon={Icon} />
 
         <h2
-          className="mt-6 font-black leading-none sm:text-[44px] lg:text-[36px]"
+          className="mt-6 text-[32px] font-black leading-none sm:text-[40px] lg:text-[36px]"
           style={{ color: darkGreen }}
         >
           {title}
         </h2>
       </div>
 
-      <p className="mt-8 text-right leading-[1.8] text-[#3F4858] sm:mt-10 lg:text-[24px]">
+      <p className="mt-6 text-right text-[18px] leading-[1.8] text-[#3F4858] sm:mt-10 sm:text-[22px] lg:text-[24px]">
         {lead}
       </p>
 
-      <p className="mt-6 text-right font-medium leading-[1.9] text-[#667085] lg:text-[18px]">
+      <p className="mt-5 text-right text-[15px] font-medium leading-[1.9] text-[#667085] sm:mt-6 sm:text-[16px] lg:text-[18px]">
         {description}
       </p>
 
@@ -75,7 +75,7 @@ function VisionCard({
 function Vision() {
   return (
     <section
-      className="w-full overflow-hidden bg-[#F8F4E6] px-4 sm:px-6 md:px-8 lg:px-[50px] lg:pt-[100px]"
+      className="w-full overflow-hidden bg-[#F8F4E6] px-4 py-16 sm:px-6 sm:py-20 md:px-8 lg:px-[50px] lg:pb-0 lg:pt-[100px]"
       dir="rtl"
     >
       <div className="mx-auto w-full max-w-[1720px]">
@@ -93,12 +93,12 @@ function Vision() {
             aria-hidden="true"
           />
 
-          <blockquote className="relative mx-auto max-w-[1420px] text-[28px] font-black leading-[1.65] text-white sm:text-[38px] md:text-[44px] lg:text-[30px]">
+          <blockquote className="relative mx-auto max-w-[1420px] text-[24px] font-black leading-[1.65] text-white sm:text-[30px] md:text-[36px] lg:text-[42px]">
             نؤمن بأن النجاح الحقيقي يقاس برضا عملائنا وثقتهم المستمرة في خدماتنا
           </blockquote>
 
           <span
-            className="relative mx-auto mt-10 block h-1 w-[220px] rounded-full sm:w-[320px] lg:mt-[64px] lg:w-[460px]"
+            className="relative mx-auto mt-10 block h-1 w-[160px] rounded-full sm:w-[260px] md:w-[320px] lg:mt-[64px] lg:w-[460px]"
             style={{ background: gold }}
             aria-hidden="true"
           />

@@ -35,14 +35,15 @@ const goldTextGradient =
 function Clients() {
   return (
     <section
+      id="gallery"
       className="relative w-full overflow-hidden px-4 py-14 text-white sm:px-6 sm:py-16 md:px-8 lg:px-[50px] lg:py-20 xl:py-[100px]"
       dir="rtl"
       style={{ background: sectionGradient }}
     >
       <div className="mx-auto w-full max-w-[1660px]">
-        <h2 className="text-center text-[34px] font-black leading-tight sm:text-5xl md:text-6xl lg:text-[72px]">
+        <h2 className="text-center text-[34px] font-black leading-tight sm:text-[44px] md:text-[56px] lg:text-[72px]">
           <span
-            className="bg-clip-text text-transparent text-[60px]"
+            className="bg-clip-text text-transparent"
             style={{
               backgroundImage: goldTextGradient,
               WebkitBackgroundClip: 'text',
@@ -51,7 +52,7 @@ function Clients() {
           >
             عملاء
           </span>
-          <span className="text-white text-[60px]"> نفتخر بهم</span>
+          <span className="text-white"> نفتخر بهم</span>
         </h2>
 
         <div className="relative mt-10 sm:mt-12 lg:mt-[68px]">
@@ -63,7 +64,7 @@ function Clients() {
               <article
                 key={client.name}
                 data-client-card
-                className="flex aspect-[286/320] shrink-0 snap-center items-center justify-center rounded-[26px] border-2 border-white/60 p-4 w-[240px]"
+                className="flex aspect-[286/320] w-[200px] shrink-0 snap-center items-center justify-center rounded-[22px] border-2 border-white/60 p-3 sm:w-[220px] sm:rounded-[24px] sm:p-4 lg:w-[240px] lg:rounded-[26px]"
               >
                 <img
                   src={client.logo}

@@ -184,6 +184,7 @@ function ContactUs() {
 
   return (
     <section
+      id="contact"
       className="relative w-full overflow-hidden bg-cover bg-center px-4 py-12 sm:px-6 sm:py-16 md:px-8 md:py-20 lg:px-[50px] lg:py-[100px]"
       dir="rtl"
       style={{ backgroundImage: `url("${contactBackground}")` }}

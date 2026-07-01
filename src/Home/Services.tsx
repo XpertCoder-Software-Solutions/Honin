@@ -89,8 +89,8 @@ const services: Array<{
 
 function ServiceIcon({ Icon }: { Icon: LucideIcon }) {
   return (
-    <span className="flex items-center justify-center rounded-[18px] border border-[#D5A125]/35 bg-[#D5A125]/35 text-[#F2C536] shadow-[0_16px_28px_rgba(213,161,37,0.12)] lg:h-[80px] lg:w-[80px]">
-      <Icon className="h-10 w-10" strokeWidth={2} />
+    <span className="flex h-[64px] w-[64px] items-center justify-center rounded-[16px] border border-[#D5A125]/35 bg-[#D5A125]/35 text-[#F2C536] shadow-[0_16px_28px_rgba(213,161,37,0.12)] sm:h-[72px] sm:w-[72px] lg:h-[80px] lg:w-[80px] lg:rounded-[18px]">
+      <Icon className="h-8 w-8 sm:h-9 sm:w-9 lg:h-10 lg:w-10" strokeWidth={2} />
     </span>
   )
 }
@@ -98,7 +98,8 @@ function ServiceIcon({ Icon }: { Icon: LucideIcon }) {
 function Services() {
   return (
     <section
-      className="w-full overflow-hidden text-white lg:px-[50px] lg:py-[100px]"
+      id="services"
+      className="w-full overflow-hidden px-4 py-16 text-white sm:px-6 sm:py-20 md:px-8 lg:px-[50px] lg:py-[100px]"
       dir="rtl"
       style={{ background: sectionGradient }}
     >
@@ -108,29 +109,29 @@ function Services() {
             ماذا نقدم
           </p>
 
-          <h2 className="mt-8 text-[60px] font-black leading-tight">
+          <h2 className="mt-6 text-[34px] font-black leading-tight sm:mt-8 sm:text-[44px] md:text-[52px] lg:text-[60px]">
             مجالات عملنا الرئيسية
           </h2>
 
-          <p className="mx-auto mt-7 max-w-[1440px] text-[20px] font-medium leading-8 text-white/62 lg:leading-10">
+          <p className="mx-auto mt-5 max-w-[900px] text-[16px] font-medium leading-8 text-white/62 sm:mt-7 sm:text-[18px] lg:max-w-[1440px] lg:text-[20px] lg:leading-10">
             نقدم مجموعة واسعة من الخدمات المتخصصة التي تلبي احتياجات المشاريع
             المختلفة وفق أعلى معايير الجودة والاحترافية.
           </p>
         </header>
 
         <div
-          className="mt-[96px] grid grid-cols-1 gap-7 lg:grid-cols-3 lg:gap-8"
+          className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6 lg:mt-[96px] lg:grid-cols-3 lg:gap-8"
           dir="ltr"
         >
           {services.map(({ number, title, description, Icon, borderClass, hoverClass, numberHoverClass, features }) => (
             <article
               key={number}
-              className={`group relative min-h-[620px] overflow-hidden rounded-[28px] border-2 bg-white/5 px-7 pb-10 pt-10 text-right shadow-[0_24px_60px_rgba(2,30,18,0.16)] backdrop-blur-sm transition-[border-color,box-shadow,transform] duration-300 ease-out hover:-translate-y-1 sm:px-10 lg:min-h-[720px] lg:rounded-[30px] lg:px-10 lg:pb-10 lg:pt-10 ${borderClass} ${hoverClass}`}
+              className={`group relative min-h-0 overflow-hidden rounded-[24px] border-2 bg-white/5 px-5 py-7 text-right shadow-[0_24px_60px_rgba(2,30,18,0.16)] backdrop-blur-sm transition-[border-color,box-shadow,transform] duration-300 ease-out hover:-translate-y-1 sm:px-8 sm:py-9 lg:min-h-[720px] lg:rounded-[30px] lg:px-10 lg:pb-10 lg:pt-10 ${borderClass} ${hoverClass}`}
               dir="rtl"
             >
               <div className="relative flex items-center justify-start">
                 <span
-                  className={`absolute left-0 top-1/2 -translate-y-1/2 text-[60px] font-black leading-none text-white/6 transition-[color,text-shadow] duration-300 ease-out ${numberHoverClass}`}
+                  className={`absolute left-0 top-1/2 -translate-y-1/2 text-[48px] font-black leading-none text-white/6 transition-[color,text-shadow] duration-300 ease-out sm:text-[56px] lg:text-[60px] ${numberHoverClass}`}
                   aria-hidden="true"
                 >
                   {number}
@@ -138,21 +139,21 @@ function Services() {
                 <ServiceIcon Icon={Icon} />
               </div>
 
-              <h3 className="mt-12 max-w-full text-[24px] font-black leading-[1.25] text-white">
+              <h3 className="mt-8 max-w-full text-[22px] font-black leading-[1.25] text-white sm:mt-10 sm:text-[24px] lg:mt-12">
                 {title}
               </h3>
 
-              <p className="mt-9 text-[16px] font-medium leading-8 text-white/62 lg:leading-9">
+              <p className="mt-5 text-[15px] font-medium leading-7 text-white/62 sm:mt-7 sm:text-[16px] sm:leading-8 lg:mt-9 lg:leading-9">
                 {description}
               </p>
 
-              <span className="mt-9 block h-px w-full bg-gradient-to-l from-[#D5A125]/80 via-[#AEA14A]/45 to-transparent" />
+              <span className="mt-7 block h-px w-full bg-gradient-to-l from-[#D5A125]/80 via-[#AEA14A]/45 to-transparent lg:mt-9" />
 
-              <ul className="mt-8 space-y-4">
+              <ul className="mt-6 space-y-3 sm:mt-8 sm:space-y-4">
                 {features.map((feature) => (
                   <li
                     key={feature}
-                    className="flex items-center justify-start gap-3 text-[14px] font-medium leading-5 text-white/72"
+                    className="flex items-center justify-start gap-3 text-[14px] font-medium leading-6 text-white/72"
                   >
                     <CheckCircle2 className="h-5 w-5 shrink-0 text-[#D5A125] sm:h-6 sm:w-6" strokeWidth={2.3} />
                     <span>{feature}</span>
