@@ -1,9 +1,24 @@
-@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&family=Tajawal:wght@400;500;700;800;900&display=swap');
 @import "tailwindcss";
+
+@theme {
+  --font-tajawal: 'Tajawal', Arial, sans-serif;
+  --font-cairo: 'Cairo', 'Tajawal', Arial, sans-serif;
+
+  --color-brand: #0f3d27;
+  --color-brand-dark: #022414;
+  --color-brand-card: #144a31;
+  --color-gold: #c9a227;
+  --color-gold-bright: #e7bc2a;
+  --color-cream: #f8f5e4;
+  --color-ink: #252527;
+  --color-body: #4a5565;
+  --color-muted: #626467;
+}
 
 body {
   margin: 0;
-  font-family: 'Tajawal', Arial, sans-serif;
+  font-family: var(--font-tajawal);
   background: #fff;
   overflow-x: hidden;
 }
@@ -14,6 +29,31 @@ html {
 
 #root {
   min-height: 100vh;
+}
+
+/* Gradients reused across the Figma design */
+.bg-green-gradient {
+  background-image: linear-gradient(135deg, #0f3d27 0%, #1a5a3d 100%);
+}
+
+.bg-gold-gradient {
+  background-image: linear-gradient(270deg, #c9a227 0%, #d4b03a 100%);
+}
+
+.bg-gold-bright-gradient {
+  background-image: linear-gradient(135deg, #e7bc2a 0%, #d4ab1f 100%);
+}
+
+.bg-gold-fade {
+  background-image: linear-gradient(270deg, #c9a227 0%, rgba(201, 162, 39, 0) 100%);
+}
+
+.text-gold-gradient {
+  background-image: linear-gradient(90deg, #e7bc2a 0%, #d4ab1f 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
 @keyframes heroContentEnter {
