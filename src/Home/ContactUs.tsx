@@ -5,6 +5,7 @@ import {
   type ReactNode,
 } from 'react'
 import { Mail, MapPin, Phone, Send, type LucideIcon } from 'lucide-react'
+import Reveal from '../components/Reveal'
 import SectionHeader from '../components/SectionHeader'
 import contactBackground from '../assets/contact-bg.jpg'
 
@@ -79,7 +80,7 @@ function validateForm(values: FormValues) {
 
 function IconBox({ Icon }: { Icon: LucideIcon }) {
   return (
-    <span className="flex h-[56px] w-[56px] shrink-0 items-center justify-center rounded-[16px] bg-green-gradient text-white shadow-[0_10px_7.5px_rgba(0,0,0,0.1),0_4px_3px_rgba(0,0,0,0.1)] sm:h-[64px] sm:w-[64px]">
+    <span className="flex h-[56px] w-[56px] shrink-0 items-center justify-center rounded-[16px] bg-green-gradient text-white shadow-[0_10px_7.5px_rgba(0,0,0,0.1),0_4px_3px_rgba(0,0,0,0.1)] transition duration-500 group-hover:rotate-[-8deg] sm:h-[64px] sm:w-[64px]">
       <Icon className="h-7 w-7" strokeWidth={2} />
     </span>
   )
@@ -87,7 +88,7 @@ function IconBox({ Icon }: { Icon: LucideIcon }) {
 
 function ContactCard({ Icon, children }: { Icon: LucideIcon; children: ReactNode }) {
   return (
-    <article className="flex w-full items-center gap-6 rounded-[16px] border border-[#f3f4f6] bg-white p-6 text-right shadow-[0_20px_12.5px_rgba(0,0,0,0.1),0_8px_5px_rgba(0,0,0,0.1)] sm:min-h-[130px] sm:px-[33px]">
+    <article className="group flex w-full items-center gap-6 rounded-[16px] border border-[#f3f4f6] bg-white p-6 text-right shadow-[0_20px_12.5px_rgba(0,0,0,0.1),0_8px_5px_rgba(0,0,0,0.1)] transition duration-300 hover:-translate-y-1 sm:min-h-[130px] sm:px-[33px]">
       <IconBox Icon={Icon} />
       <div className="min-w-0 flex-1">{children}</div>
     </article>
@@ -180,7 +181,8 @@ function ContactUs() {
           description="تواصل معنا اليوم واحصل على استشارة مجانية وعرض سعر مخصص لمشروعك"
         />
 
-        <div className="mt-12 grid gap-8 lg:mt-[80px] lg:grid-cols-[615px_minmax(0,1fr)] lg:items-start lg:gap-16">
+        <div className="mt-12 grid gap-8 lg:mt-[80px] lg:grid-cols-2 lg:items-start lg:gap-10 2xl:grid-cols-[615px_minmax(0,1fr)] 2xl:gap-16">
+          <Reveal>
           <form
             className="w-full rounded-[24px] border border-[#f3f4f6] bg-white p-6 text-right shadow-[0_25px_25px_rgba(0,0,0,0.25)] sm:p-[49px]"
             noValidate
@@ -229,29 +231,33 @@ function ContactUs() {
             </div>
 
             {successMessage ? (
-              <p className="mt-5 rounded-[16px] bg-emerald-50 px-5 py-4 text-[16px] font-bold text-brand" role="status">
+              <p className="fade-up mt-5 rounded-[16px] bg-emerald-50 px-5 py-4 text-[16px] font-bold text-brand" role="status">
                 {successMessage}
               </p>
             ) : null}
 
             <button
               type="submit"
-              className="mt-6 flex h-[68px] w-full items-center justify-center gap-3 rounded-full bg-gold-gradient text-[18px] font-extrabold text-brand shadow-[0_20px_12.5px_rgba(0,0,0,0.1),0_8px_5px_rgba(0,0,0,0.1)] transition hover:-translate-y-0.5 hover:brightness-105 focus:outline-none focus:ring-4 focus:ring-gold/35"
+              className="mt-6 flex h-[68px] w-full items-center justify-center gap-3 rounded-full bg-gold-gradient text-[18px] font-extrabold text-brand shadow-[0_20px_12.5px_rgba(0,0,0,0.1),0_8px_5px_rgba(0,0,0,0.1)] transition duration-200 hover:-translate-y-0.5 hover:brightness-105 active:scale-[0.98] focus:outline-none focus:ring-4 focus:ring-gold/35"
             >
               إرسال الطلب
               <Send className="h-[22px] w-[22px] -scale-x-100" strokeWidth={2} />
             </button>
           </form>
+          </Reveal>
 
+          <Reveal delay={150}>
           <div className="space-y-8">
             <ContactCard Icon={Phone}>
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-6">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-6 lg:grid-cols-2 xl:grid-cols-3">
                 {phoneDepartments.map(({ label, value }) => (
                   <div key={label} className="space-y-2">
-                    <p className="text-[16px] font-bold leading-7 text-body sm:text-[18px]">{label}</p>
+                    <p className="whitespace-nowrap text-[16px] font-bold leading-7 text-body 2xl:text-[18px]">{label}</p>
                     <a
                       href={`tel:+966${value.slice(1)}`}
-                      className="block text-[18px] font-bold leading-7 text-brand transition hover:text-gold sm:text-[20px]"
+                      className="block text-[18px] font-bold leading-7 text-brand transition hover:text-gold 2xl:text-[20px]"
+                      dir="ltr"
+                      style={{ textAlign: 'right' }}
                     >
                       {value}
                     </a>
@@ -281,6 +287,7 @@ function ContactUs() {
               <p className="mt-6 border-t border-white/20 pt-6 text-[18px] font-bold leading-7 text-gold">خدمة الطوارئ متاحة 24/7</p>
             </article>
           </div>
+          </Reveal>
         </div>
       </div>
     </section>

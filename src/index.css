@@ -21,6 +21,158 @@ body {
   font-family: var(--font-tajawal);
   background: #fff;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+@layer base {
+  h1,
+  h2,
+  h3,
+  blockquote {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+::selection {
+  background: rgba(201, 162, 39, 0.3);
+  color: #0f3d27;
+}
+
+:root {
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Scroll reveal: applied to a wrapper so it never fights hover transitions */
+.reveal {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0);
+  transition:
+    opacity 700ms var(--ease-out),
+    transform 700ms var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.reveal-fade {
+  transform: none;
+}
+
+.reveal-scale {
+  transform: scale(0.96);
+}
+
+@keyframes headerSlideIn {
+  from {
+    transform: translateY(-120%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+.header-slide-in {
+  animation: headerSlideIn 450ms var(--ease-out) both;
+}
+
+@keyframes heroProgress {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.hero-progress {
+  transform-origin: right;
+  animation: heroProgress var(--hero-interval, 6000ms) linear both;
+}
+
+@keyframes kenBurns {
+  from {
+    transform: scale(1.08);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}
+
+.ken-burns {
+  animation: kenBurns 7000ms ease-out both;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 16px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.fade-up {
+  animation: fadeUp 500ms var(--ease-out) both;
+  animation-delay: var(--fade-delay, 0ms);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.lightbox-backdrop {
+  animation: fadeIn 250ms ease-out both;
+}
+
+.lightbox-image {
+  animation: zoomIn 350ms var(--ease-out) both;
+}
+
+@keyframes floatGlow {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+
+  50% {
+    opacity: 0.65;
+  }
+}
+
+.glow-pulse {
+  animation: floatGlow 4s ease-in-out infinite;
 }
 
 html {
@@ -93,8 +245,30 @@ html {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
   .hero-content-enter,
-  .hero-card-active {
+  .hero-card-active,
+  .header-slide-in,
+  .ken-burns,
+  .fade-up,
+  .lightbox-backdrop,
+  .lightbox-image,
+  .glow-pulse {
     animation: none;
+  }
+
+  .hero-progress {
+    animation: none;
+    transform: scaleX(1);
+  }
+
+  .reveal,
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }

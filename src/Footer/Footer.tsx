@@ -94,7 +94,7 @@ function BrandColumn() {
             key={label}
             href="#"
             aria-label={label}
-            className="flex h-12 w-12 items-center justify-center rounded-[14px] border border-[#cfa931]/20 bg-[#cfa931]/10 text-[#cfa931] transition hover:-translate-y-0.5 hover:bg-[#cfa931]/20"
+            className="flex h-12 w-12 items-center justify-center rounded-[14px] border border-[#cfa931]/20 bg-[#cfa931]/10 text-[#cfa931] transition duration-300 hover:-translate-y-1 hover:bg-[#cfa931] hover:text-brand"
           >
             <Icon size={20} aria-hidden="true" />
           </a>
@@ -111,7 +111,7 @@ function QuickLinksColumn() {
       <ul className="space-y-2">
         {quickLinks.map(({ label, href }) => (
           <li key={label}>
-            <a href={href} className="text-[18px] font-medium leading-7 text-[#d1d5dc] transition hover:text-gold">
+            <a href={href} className="inline-block text-[18px] font-medium leading-7 text-[#d1d5dc] transition duration-200 hover:-translate-x-1 hover:text-gold">
               {label}
             </a>
           </li>
@@ -185,7 +185,7 @@ function Footer() {
       </div>
 
       <div className="relative mx-auto w-full max-w-[1440px]">
-        <div className="grid gap-12 md:grid-cols-2 xl:flex xl:items-start xl:justify-between">
+        <div className="grid gap-x-10 gap-y-12 md:grid-cols-2 2xl:flex 2xl:items-start 2xl:justify-between">
           <BrandColumn />
           <QuickLinksColumn />
           <ServicesColumn />

@@ -31,8 +31,8 @@ function CategoryTabs({ active, onChange }: CategoryTabsProps) {
             role="tab"
             aria-selected={isActive}
             onClick={() => onChange(id)}
-            className={`flex items-center justify-center gap-2 rounded-[16px] px-5 py-4 text-[16px] font-extrabold leading-6 transition sm:text-[18px] lg:px-8 lg:py-[23px] lg:text-[20px] ${
-              isActive ? 'bg-brand text-white' : 'text-brand hover:bg-brand/5'
+            className={`flex items-center justify-center gap-2 rounded-[16px] px-5 py-4 text-[16px] font-extrabold leading-6 transition-colors duration-300 active:scale-[0.98] sm:text-[18px] lg:px-8 lg:py-[23px] lg:text-[20px] ${
+              isActive ? 'bg-brand text-white shadow-[0_10px_24px_-8px_rgba(15,61,39,0.6)]' : 'text-brand hover:bg-brand/5'
             }`}
           >
             <Icon className="h-7 w-7 shrink-0 lg:h-8 lg:w-8" strokeWidth={1.8} />

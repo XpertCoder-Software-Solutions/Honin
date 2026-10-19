@@ -5,6 +5,7 @@ import modonLogo from '../assets/clients/modon.png'
 import nationalWaterLogo from '../assets/clients/national-water-company.png'
 import riyadhMunicipalityLogo from '../assets/clients/riyadh-region-municipality.png'
 import saudiElectricityLogo from '../assets/clients/saudi-electricity-company.png'
+import Reveal from '../components/Reveal'
 
 // Visual order left → right, as in the design.
 const clients = [
@@ -37,9 +38,11 @@ function Clients() {
       </div>
 
       <div className="relative mx-auto flex w-full max-w-[1440px] flex-col items-center gap-10 lg:min-h-[352px] lg:justify-center lg:gap-[47px]">
+        <Reveal>
         <h2 className="text-center text-[34px] font-bold leading-[1.2] text-[#fdfdfd] sm:text-[46px] lg:text-[60px] lg:leading-[60px]">
           <span className="text-gold-gradient">عملاء</span> نفتخر بهم
         </h2>
+        </Reveal>
 
         <div className="flex w-full items-center justify-center gap-[22px]" dir="ltr">
           <button type="button" aria-label="السابق" onClick={() => scrollBy(-1)} className={arrowButtonClass}>
@@ -48,23 +51,22 @@ function Clients() {
 
           <div
             ref={trackRef}
-            className="flex max-w-[1188px] snap-x gap-[22px] overflow-x-auto scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            className="-my-3 flex max-w-[1188px] snap-x gap-[22px] overflow-x-auto py-3 scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
-            {clients.map((client) => (
-              <div
-                key={client.name}
-                className="flex h-[245px] w-[220px] shrink-0 snap-start rounded-[24px] border border-[#e5e5e6] bg-white/5 p-4"
-              >
+            {clients.map((client, index) => (
+              <Reveal key={client.name} delay={index * 90} variant="scale" className="shrink-0 snap-start">
+              <div className="group flex h-[245px] w-[220px] rounded-[24px] border border-[#e5e5e6]/70 bg-white/5 p-4 transition duration-300 hover:-translate-y-1.5 hover:border-gold-bright hover:bg-white/10">
                 <div className="h-full w-full overflow-hidden rounded-[16px] bg-white">
                   <img
                     src={client.logo}
                     alt={client.name}
-                    className="h-full w-full object-cover"
+                    className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
                     loading="lazy"
                     decoding="async"
                   />
                 </div>
               </div>
+              </Reveal>
             ))}
           </div>
 

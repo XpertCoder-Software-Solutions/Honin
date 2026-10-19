@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, type CSSProperties } from 'react'
 import { Image } from 'lucide-react'
 import CategoryTabs, { type Category } from '../components/CategoryTabs'
 import Lightbox from '../components/Lightbox'
@@ -58,7 +58,7 @@ const works: Record<Category, Work[]> = {
       image: abhaFlies,
     },
     {
-      title: 'تثقيف المجتمع فى مكافحة الحشرات',
+      title: 'تثقيف المجتمع في مكافحة الحشرات',
       description: 'تنظيم فعاليات تعليمية لتعريف المجتمع بكيفية مقاومة الحشرات ومكافحتها.',
       image: communityEducation,
     },
@@ -98,9 +98,13 @@ function Works() {
           }}
         />
 
-        <div className="grid w-full grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div key={category} className="grid w-full grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((work, index) => (
-            <article key={work.title} className="flex flex-col overflow-hidden rounded-[32px] border border-[#b0b1b3] bg-white">
+            <article
+              key={work.title}
+              className="fade-up flex flex-col overflow-hidden rounded-[32px] border border-[#b0b1b3] bg-white transition duration-300 hover:-translate-y-1.5 hover:shadow-[0_24px_40px_-16px_rgba(15,61,39,0.3)]"
+              style={{ '--fade-delay': `${Math.min(index, 5) * 70}ms` } as CSSProperties}
+            >
               <div className="p-6 text-right sm:p-8">
                 <h2 className="text-[20px] font-extrabold leading-9 text-brand">{work.title}</h2>
                 {work.description ? (
@@ -114,9 +118,9 @@ function Works() {
                 className="group relative mt-auto aspect-square w-full overflow-hidden outline-none"
                 aria-label={`عرض صور ${work.title}`}
               >
-                <img src={work.image} alt={work.title} loading="lazy" className="h-full w-full object-cover" />
+                <img src={work.image} alt={work.title} loading="lazy" className="h-full w-full object-cover transition duration-700 ease-out group-hover:scale-105" />
                 <span className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 transition group-hover:opacity-100 group-focus-visible:opacity-100">
-                  <span className="flex items-center gap-2 rounded-[8px] bg-white p-2 text-[16px] font-bold leading-[1.6] text-brand">
+                  <span className="flex translate-y-2 items-center gap-2 rounded-[8px] bg-white p-2 text-[16px] font-bold leading-[1.6] text-brand transition duration-300 group-hover:translate-y-0">
                     <Image className="h-4 w-4" strokeWidth={2.2} />
                     عرض الصور
                   </span>

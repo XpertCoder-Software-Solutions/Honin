@@ -5,6 +5,7 @@ import {
   Sprout,
   type LucideIcon,
 } from 'lucide-react'
+import Reveal from '../components/Reveal'
 
 const services: Array<{
   number: string
@@ -29,7 +30,7 @@ const services: Array<{
       'تصريف السيول',
       'الإشراف والصيانة',
       'الأعمال الكهربائية',
-      'تنفيذ البلوك والانترلوك',
+      'تنفيذ البلوك والإنترلوك',
       'تنفيذ المناقصات الحكومية',
     ],
   },
@@ -84,6 +85,7 @@ function Services() {
       </div>
 
       <div className="relative mx-auto w-full max-w-[1240px]">
+        <Reveal>
         <header className="mx-auto max-w-[768px] text-center">
           <p className="mx-auto inline-flex h-[42px] items-center rounded-full border border-gold-bright/30 bg-gold-bright/10 px-5 text-[14px] font-medium tracking-[0.7px] text-gold-bright">
             ماذا نقدم
@@ -97,12 +99,13 @@ function Services() {
             نقدم مجموعة واسعة من الخدمات المتخصصة التي تلبي احتياجات المشاريع المختلفة وفق أعلى معايير الجودة والاحترافية.
           </p>
         </header>
+        </Reveal>
 
         <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-2 lg:mt-[96px] lg:grid-cols-3">
-          {services.map(({ number, title, description, Icon, borderClass, features }) => (
+          {services.map(({ number, title, description, Icon, borderClass, features }, index) => (
+            <Reveal key={number} delay={index * 120} className="h-full">
             <article
-              key={number}
-              className={`group relative rounded-[24px] border bg-white/5 p-8 text-right shadow-[0_16px_40px_rgba(0,0,0,0.2)] transition duration-300 hover:-translate-y-1 lg:min-h-[721px] lg:p-[40px] ${borderClass}`}
+              className={`group relative h-full rounded-[24px] border bg-white/5 p-8 text-right shadow-[0_16px_40px_rgba(0,0,0,0.2)] transition duration-500 hover:-translate-y-2 hover:bg-white/[0.08] hover:shadow-[0_24px_50px_rgba(0,0,0,0.3)] lg:min-h-[721px] lg:p-[40px] ${borderClass}`}
             >
               <span
                 aria-hidden="true"
@@ -112,8 +115,8 @@ function Services() {
               </span>
 
               <span className="relative flex h-[80px] w-[80px] items-center justify-center">
-                <span aria-hidden="true" className="absolute inset-0 bg-gold-bright opacity-50 blur-[24px]" />
-                <span className="relative flex h-[80px] w-[80px] items-center justify-center rounded-[16px] border border-gold-bright/30 bg-gold-bright/20 text-gold-bright">
+                <span aria-hidden="true" className="glow-pulse absolute inset-0 bg-gold-bright opacity-50 blur-[24px]" />
+                <span className="relative flex h-[80px] w-[80px] items-center justify-center rounded-[16px] border border-gold-bright/30 bg-gold-bright/20 text-gold-bright transition duration-500 group-hover:scale-105 group-hover:rotate-[-6deg]">
                   <Icon className="h-10 w-10" strokeWidth={2} />
                 </span>
               </span>
@@ -122,17 +125,18 @@ function Services() {
 
               <p className="mt-6 text-[16px] leading-[26px] text-white/70">{description}</p>
 
-              <span className="mt-6 block h-px w-full bg-gradient-to-l from-gold-bright/50 via-gold-bright/20 to-transparent" />
+              <span className="mt-6 block h-px w-full origin-right bg-gradient-to-l from-gold-bright/50 via-gold-bright/20 to-transparent transition-transform duration-700 group-hover:scale-x-110" />
 
               <ul className="mt-6 space-y-3">
                 {features.map((feature) => (
-                  <li key={feature} className="flex items-center gap-3 text-[14px] leading-5 text-white/80">
+                  <li key={feature} className="flex items-center gap-3 text-[14px] leading-5 text-white/80 transition-colors duration-200 hover:text-white">
                     <CircleCheck className="h-5 w-5 shrink-0 text-gold-bright" strokeWidth={2} />
                     {feature}
                   </li>
                 ))}
               </ul>
             </article>
+            </Reveal>
           ))}
         </div>
       </div>

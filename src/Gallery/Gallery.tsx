@@ -47,9 +47,10 @@ function Photo({ src, index, className, onOpen }: { src: string; index: number; 
       type="button"
       onClick={() => onOpen(index)}
       aria-label={`عرض الصورة ${index + 1}`}
-      className={`group relative block overflow-hidden rounded-[16px] outline-none focus-visible:ring-4 focus-visible:ring-gold/50 ${className}`}
+      className={`group relative block overflow-hidden rounded-[16px] outline-none transition duration-300 hover:shadow-[0_20px_40px_-16px_rgba(15,61,39,0.4)] focus-visible:ring-4 focus-visible:ring-gold/50 ${className}`}
     >
-      <img src={src} alt="" loading="lazy" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+      <img src={src} alt="" loading="lazy" className="h-full w-full object-cover transition duration-700 ease-out group-hover:scale-105" />
+      <span aria-hidden="true" className="absolute inset-0 bg-brand/0 transition duration-300 group-hover:bg-brand/15" />
     </button>
   )
 }
@@ -102,7 +103,7 @@ function Gallery() {
           }}
         />
 
-        <div className="flex w-full flex-col items-center gap-5">
+        <div key={category} className="fade-up flex w-full flex-col items-center gap-5">
           {usesDesignedLayout ? (
             <DesignedLayout images={images} onOpen={setLightboxIndex} />
           ) : (
