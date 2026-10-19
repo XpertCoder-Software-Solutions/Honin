@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import Clients from './Home/Clients'
 import ContactUs from './Home/ContactUs'
 import OurWork from './Home/OurWork'
@@ -9,11 +10,13 @@ import About from './Home/about'
 import Hero from './Home/Hero'
 import Header from './Header/Header'
 import Footer from './Footer/Footer'
+import Works from './Works/Works'
+import Gallery from './Gallery/Gallery'
+import { useLocation } from './router'
 
-function App() {
+function HomePage() {
   return (
-    <>
-      <Header />
+    <main>
       <Hero />
       <About />
       <Services />
@@ -23,8 +26,27 @@ function App() {
       <OurWork />
       <Clients />
       <ContactUs />
+    </main>
+  )
+}
+
+function App() {
+  const { route, section } = useLocation()
+
+  useEffect(() => {
+    if (section) {
+      document.getElementById(section)?.scrollIntoView()
+    } else {
+      window.scrollTo(0, 0)
+    }
+  }, [route, section])
+
+  return (
+    <div className="relative">
+      <Header />
+      {route === '/works' ? <Works /> : route === '/gallery' ? <Gallery /> : <HomePage />}
       <Footer />
-    </>
+    </div>
   )
 }
 

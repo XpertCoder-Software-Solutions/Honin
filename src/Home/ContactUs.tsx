@@ -5,17 +5,13 @@ import {
   type ReactNode,
 } from 'react'
 import { Mail, MapPin, Phone, Send, type LucideIcon } from 'lucide-react'
-import contactBackground from '../assets/Contact Us Bg.png'
-
-const darkGreen = '#0F3D27'
-const gold = '#C9A227'
-const iconGradient =
-  'linear-gradient(135deg, #0F3D27 0%, #104029 9.09%, #11422B 18.18%, #12452D 27.27%, #13472F 36.36%, #144A31 45.45%, #154D33 54.55%, #164F35 63.64%, #175237 72.73%, #185539 81.82%, #19573B 90.91%, #1A5A3D 100%)'
+import SectionHeader from '../components/SectionHeader'
+import contactBackground from '../assets/contact-bg.jpg'
 
 const phoneDepartments = [
-  { label: 'قسم الزراعة', value: '0508542228' },
-  { label: 'قسم المكافحة', value: '0543958080' },
   { label: 'قسم المقاولات', value: '0554177768' },
+  { label: 'قسم المكافحة', value: '0543958080' },
+  { label: 'قسم الزراعة', value: '0508542228' },
 ]
 
 const contactEmail = 'info@honain.sa'
@@ -83,31 +79,17 @@ function validateForm(values: FormValues) {
 
 function IconBox({ Icon }: { Icon: LucideIcon }) {
   return (
-    <span
-      className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-white shadow-[0_12px_24px_rgba(11,74,47,0.25)] sm:h-14 sm:w-14 lg:h-16 lg:w-16 lg:rounded-2xl"
-      style={{ background: iconGradient }}
-    >
-      <Icon className="h-5 w-5 sm:h-6 sm:w-6 lg:h-7 lg:w-7" strokeWidth={2.1} />
+    <span className="flex h-[56px] w-[56px] shrink-0 items-center justify-center rounded-[16px] bg-green-gradient text-white shadow-[0_10px_7.5px_rgba(0,0,0,0.1),0_4px_3px_rgba(0,0,0,0.1)] sm:h-[64px] sm:w-[64px]">
+      <Icon className="h-7 w-7" strokeWidth={2} />
     </span>
   )
 }
 
-function ContactCard({
-  Icon,
-  children,
-  className = '',
-}: {
-  Icon: LucideIcon
-  children: ReactNode
-  className?: string
-}) {
+function ContactCard({ Icon, children }: { Icon: LucideIcon; children: ReactNode }) {
   return (
-    <article
-      className={`flex w-full min-w-0 items-start justify-between gap-4 rounded-2xl bg-white p-5 text-right shadow-[0_18px_36px_rgba(11,74,47,0.16)] ring-1 ring-black/5 sm:items-center sm:p-6 lg:gap-5 lg:rounded-3xl lg:p-8 ${className}`}
-      dir="ltr"
-    >
-      {children}
+    <article className="flex w-full items-center gap-6 rounded-[16px] border border-[#f3f4f6] bg-white p-6 text-right shadow-[0_20px_12.5px_rgba(0,0,0,0.1),0_8px_5px_rgba(0,0,0,0.1)] sm:min-h-[130px] sm:px-[33px]">
       <IconBox Icon={Icon} />
+      <div className="min-w-0 flex-1">{children}</div>
     </article>
   )
 }
@@ -182,137 +164,33 @@ function ContactUs() {
     setTouched({})
   }
 
+  const inputClass = (hasError: boolean) =>
+    `mt-3 w-full rounded-[16px] border-2 bg-[#f9fafb] px-6 text-right text-[18px] text-[#0a0a0a] outline-none transition placeholder:text-[#0a0a0a]/50 focus:bg-white ${
+      hasError ? 'border-red-500 focus:border-red-600' : 'border-[#e5e7eb] focus:border-brand'
+    }`
+
   return (
-    <section
-      id="contact"
-      className="relative w-full overflow-hidden bg-cover bg-center px-4 py-12 sm:px-6 sm:py-16 md:px-8 md:py-20 lg:px-[50px] lg:py-[100px]"
-      dir="rtl"
-      style={{ backgroundImage: `url("${contactBackground}")` }}
-    >
-      <div
-        className="absolute inset-0 bg-[#F8F4E6]/88 backdrop-blur-[1px]"
-        aria-hidden="true"
-      />
+    <section id="contact" className="relative w-full scroll-mt-8 overflow-hidden bg-cream px-4 py-16 sm:px-8 sm:py-20 lg:px-[64px] lg:py-[128px]" dir="rtl">
+      <img src={contactBackground} alt="" aria-hidden="true" className="absolute inset-0 h-full w-full object-cover opacity-5" />
 
-      <div className="relative z-10 mx-auto w-full max-w-[1440px]">
-        <header className="mx-auto max-w-[1440px] text-center">
-          <p
-            className="text-base font-black sm:text-lg lg:text-[20px]"
-            style={{ color: gold }}
-          >
-            تواصل معنا
-          </p>
-          <h1
-            className="mt-3 text-[34px] font-black leading-tight sm:mt-4 sm:text-5xl md:text-6xl lg:mt-5 lg:text-[60px]"
-            style={{ color: darkGreen }}
-          >
-            نحن هنا لخدمتك
-          </h1>
-          <p className="mx-auto mt-4 max-w-[680px] text-base font-medium leading-7 text-slate-600 sm:text-lg sm:leading-8 lg:mt-5 lg:max-w-[1440px] lg:text-[20px] lg:leading-9">
-            تواصل معنا اليوم واحصل على استشارة مجانية وعرض سعر مخصص لمشروعك
-          </p>
-        </header>
+      <div className="relative mx-auto w-full max-w-[1440px]">
+        <SectionHeader
+          eyebrow="تواصل معنا"
+          title="نحن هنا لخدمتك"
+          description="تواصل معنا اليوم واحصل على استشارة مجانية وعرض سعر مخصص لمشروعك"
+        />
 
-        <div
-          className="mx-auto mt-10 grid w-full max-w-[680px] gap-8 sm:mt-12 md:gap-10 lg:mt-[72px] lg:max-w-none lg:grid-cols-2 lg:items-start lg:gap-16 xl:gap-20"
-          dir="ltr"
-        >
-          <div className="order-2 space-y-5 sm:space-y-6 lg:order-1 lg:space-y-8">
-            <ContactCard
-              Icon={Phone}
-              className="items-start"
-            >
-              <div className="grid min-w-0 flex-1 grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-5 lg:gap-8">
-                {phoneDepartments.map(({ label, value }) => (
-                  <div key={label} className="text-right sm:text-center" dir="rtl">
-                    <p className="text-[13px] font-bold text-[#4A5565] sm:text-[14px] xl:text-[18px]">
-                      {label}
-                    </p>
-                    <a
-                      href={`tel:+966${value.slice(1)}`}
-                      className="mt-1 inline-block text-[15px] font-black tracking-wide transition hover:text-[#C9A227] focus:outline-none focus:ring-2 focus:ring-[#C9A227]/50 sm:text-base lg:mt-2 xl:text-[20px]"
-                      style={{ color: darkGreen }}
-                      dir="ltr"
-                    >
-                      {value}
-                    </a>
-                  </div>
-                ))}
-              </div>
-            </ContactCard>
-
-            <ContactCard Icon={Mail}>
-              <div className="min-w-0 flex-1" dir="rtl">
-                <h2 className="text-base font-bold text-[#4A5565] sm:text-lg lg:text-[18px]">
-                  البريد الإلكتروني
-                </h2>
-                <a
-                  href={`mailto:${contactEmail}`}
-                  className="mt-1 inline-block break-words text-lg font-black transition hover:text-[#C9A227] focus:outline-none focus:ring-2 focus:ring-[#C9A227]/50 sm:text-[20px] lg:mt-2"
-                  style={{ color: darkGreen }}
-                  dir="ltr"
-                >
-                  {contactEmail}
-                </a>
-              </div>
-            </ContactCard>
-
-            <ContactCard Icon={MapPin}>
-              <div className="min-w-0 flex-1" dir="rtl">
-                <h2 className="text-base font-bold text-[#4A5565] sm:text-lg lg:text-[18px]">
-                  العنوان
-                </h2>
-                <p
-                  className="mt-1 text-lg font-black leading-7 sm:text-[20px] sm:leading-9 lg:mt-2"
-                  style={{ color: darkGreen }}
-                >
-                  الرياض، المملكة العربية السعودية
-                </p>
-              </div>
-            </ContactCard>
-
-            <article
-              className="rounded-2xl p-5 text-right text-white shadow-[0_18px_36px_rgba(11,74,47,0.18)] sm:p-6 lg:rounded-3xl lg:p-9"
-              style={{ background: iconGradient }}
-              dir="rtl"
-            >
-              <h2 className="text-[22px] font-black sm:text-[24px]">
-                ساعات العمل
-              </h2>
-              <div className="mt-5 space-y-3 text-base font-medium leading-7 text-white/80 sm:text-[18px] lg:mt-8 lg:space-y-5">
-                <p>السبت - الخميس: 8:00 ص - 5:00 م</p>
-                <p>الجمعة: مغلق</p>
-              </div>
-              <div className="my-5 h-px bg-white/20" />
-              <p
-                className="text-base font-black sm:text-[18px]"
-                style={{ color: gold }}
-              >
-                خدمة الطوارئ متاحة 24/7
-              </p>
-            </article>
-          </div>
-
+        <div className="mt-12 grid gap-8 lg:mt-[80px] lg:grid-cols-[615px_minmax(0,1fr)] lg:items-start lg:gap-16">
           <form
-            className="order-1 w-full rounded-2xl bg-white px-5 py-7 text-right shadow-[0_22px_50px_rgba(11,74,47,0.16)] ring-1 ring-black/5 sm:px-8 sm:py-10 md:px-10 md:py-12 lg:order-2 lg:rounded-3xl lg:p-12"
-            dir="rtl"
+            className="w-full rounded-[24px] border border-[#f3f4f6] bg-white p-6 text-right shadow-[0_25px_25px_rgba(0,0,0,0.25)] sm:p-[49px]"
             noValidate
             onSubmit={handleSubmit}
           >
-            <h2
-              className="mb-6 text-start text-2xl font-black sm:mb-8 sm:text-[28px] lg:text-[30px]"
-              style={{ color: darkGreen }}
-            >
-              طلب عرض سعر
-            </h2>
+            <h3 className="text-[26px] font-extrabold leading-9 text-brand sm:text-[30px]">طلب عرض سعر</h3>
 
-            <div className="space-y-6">
+            <div className="mt-8 space-y-6">
               {formFields.map(({ id, label, placeholder, type, autoComplete }) => (
-                <label
-                  key={id}
-                  htmlFor={id}
-                  className="block text-base font-black text-[#364153] sm:text-[18px]"
-                >
+                <label key={id} htmlFor={id} className="block text-[18px] font-bold leading-7 text-[#364153]">
                   {label}
                   <input
                     id={id}
@@ -324,26 +202,16 @@ function ContactUs() {
                     placeholder={placeholder}
                     autoComplete={autoComplete}
                     inputMode={id === 'phone' ? 'numeric' : undefined}
-                    pattern={
-                      id === 'phone' ? '[0-9]*' : '[\\p{L}\\p{M}\\s]+'
-                    }
                     maxLength={id === 'phone' ? 10 : undefined}
                     aria-invalid={Boolean(errors[id])}
                     aria-describedby={errors[id] ? `${id}-error` : undefined}
-                    className={`mt-2 h-[52px] w-full rounded-xl border-2 bg-slate-50/60 px-4 text-right text-base font-medium text-slate-800 outline-none transition placeholder:text-[14px] placeholder:text-[#0A0A0A]/50 focus:bg-white sm:mt-3 sm:h-[58px] sm:rounded-2xl sm:px-5 sm:text-[18px] sm:placeholder:text-[16px] lg:h-[64px] lg:px-6 ${
-                      errors[id]
-                        ? 'border-red-500 focus:border-red-600'
-                        : 'border-slate-200 focus:border-[#0F3D27]'
-                    }`}
+                    className={`${inputClass(Boolean(errors[id]))} h-[64px] font-normal`}
                   />
                   <FieldError id={`${id}-error`} message={errors[id]} />
                 </label>
               ))}
 
-              <label
-                htmlFor="message"
-                className="block text-base font-black text-[#364153] sm:text-[18px]"
-              >
+              <label htmlFor="message" className="block text-[18px] font-bold leading-7 text-[#364153]">
                 الرسالة
                 <textarea
                   id="message"
@@ -352,42 +220,67 @@ function ContactUs() {
                   onBlur={handleBlur}
                   onChange={handleChange}
                   placeholder="اكتب رسالتك هنا..."
-                  rows={6}
                   aria-invalid={Boolean(errors.message)}
-                  aria-describedby={
-                    errors.message ? 'message-error' : undefined
-                  }
-                  className={`mt-2 min-h-36 w-full resize-none rounded-xl border-2 bg-slate-50/60 px-4 py-4 text-right text-base font-medium text-slate-800 outline-none transition placeholder:text-[14px] placeholder:text-[#0A0A0A]/50 focus:bg-white sm:mt-4 sm:min-h-20 sm:rounded-2xl sm:px-5 sm:py-5 sm:text-xl sm:placeholder:text-[16px] lg:px-6 ${
-                    errors.message
-                      ? 'border-red-500 focus:border-red-600'
-                      : 'border-slate-200 focus:border-[#0F3D27]'
-                  }`}
+                  aria-describedby={errors.message ? 'message-error' : undefined}
+                  className={`${inputClass(Boolean(errors.message))} h-[176px] resize-none py-4 font-normal leading-7`}
                 />
                 <FieldError id="message-error" message={errors.message} />
               </label>
             </div>
 
             {successMessage ? (
-              <p className="mt-5 rounded-2xl bg-emerald-50 px-5 py-4 text-base font-black text-[#0F3D27]">
+              <p className="mt-5 rounded-[16px] bg-emerald-50 px-5 py-4 text-[16px] font-bold text-brand" role="status">
                 {successMessage}
               </p>
             ) : null}
 
             <button
               type="submit"
-              className="mt-6 flex h-[52px] w-full items-center justify-center gap-3 rounded-full px-5 text-base font-black transition hover:translate-y-[-1px] hover:brightness-105 focus:outline-none focus:ring-4 focus:ring-[#D4AF28]/35 sm:h-[60px] sm:text-xl lg:h-[68px] lg:gap-4 lg:px-8 lg:text-2xl"
-              style={{
-                background:
-                  'linear-gradient(270deg, #C9A227 0%, #CBA52B 20%, #CDA82F 40%, #D0AA33 60%, #D2AD36 80%, #D4B03A 100%)',
-                boxShadow:
-                  '0px 8px 10px -6px rgba(0, 0, 0, 0.1), 0px 20px 25px -5px rgba(0, 0, 0, 0.1)',
-                color: darkGreen,
-              }}
+              className="mt-6 flex h-[68px] w-full items-center justify-center gap-3 rounded-full bg-gold-gradient text-[18px] font-extrabold text-brand shadow-[0_20px_12.5px_rgba(0,0,0,0.1),0_8px_5px_rgba(0,0,0,0.1)] transition hover:-translate-y-0.5 hover:brightness-105 focus:outline-none focus:ring-4 focus:ring-gold/35"
             >
-              <span>إرسال الطلب</span>
-              <Send className="h-5 w-5 sm:h-6 sm:w-6" strokeWidth={2.2} />
+              إرسال الطلب
+              <Send className="h-[22px] w-[22px] -scale-x-100" strokeWidth={2} />
             </button>
           </form>
+
+          <div className="space-y-8">
+            <ContactCard Icon={Phone}>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-6">
+                {phoneDepartments.map(({ label, value }) => (
+                  <div key={label} className="space-y-2">
+                    <p className="text-[16px] font-bold leading-7 text-body sm:text-[18px]">{label}</p>
+                    <a
+                      href={`tel:+966${value.slice(1)}`}
+                      className="block text-[18px] font-bold leading-7 text-brand transition hover:text-gold sm:text-[20px]"
+                    >
+                      {value}
+                    </a>
+                  </div>
+                ))}
+              </div>
+            </ContactCard>
+
+            <ContactCard Icon={Mail}>
+              <p className="text-[16px] font-bold leading-7 text-body sm:text-[18px]">البريد الإلكتروني</p>
+              <a href={`mailto:${contactEmail}`} className="mt-2 block break-words text-[18px] font-bold leading-7 text-brand transition hover:text-gold sm:text-[20px]">
+                {contactEmail}
+              </a>
+            </ContactCard>
+
+            <ContactCard Icon={MapPin}>
+              <p className="text-[16px] font-bold leading-7 text-body sm:text-[18px]">العنوان</p>
+              <p className="mt-2 text-[18px] font-bold leading-7 text-brand sm:text-[20px]">الرياض، المملكة العربية السعودية</p>
+            </ContactCard>
+
+            <article className="rounded-[16px] p-8 text-right text-white shadow-[0_25px_25px_rgba(0,0,0,0.25)]" style={{ backgroundImage: 'linear-gradient(161.3deg, #0f3d27 0%, #1a5a3d 100%)' }}>
+              <h3 className="text-[24px] font-extrabold leading-8">ساعات العمل</h3>
+              <div className="mt-4 space-y-3 text-[18px] leading-7">
+                <p>السبت - الخميس: 8:00 ص - 5:00 م</p>
+                <p>الجمعة: مغلق</p>
+              </div>
+              <p className="mt-6 border-t border-white/20 pt-6 text-[18px] font-bold leading-7 text-gold">خدمة الطوارئ متاحة 24/7</p>
+            </article>
+          </div>
         </div>
       </div>
     </section>

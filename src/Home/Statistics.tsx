@@ -1,75 +1,49 @@
-const sectionGradient =
-  'linear-gradient(135deg, #0F3D27 0%, #104029 9.09%, #11422B 18.18%, #12452D 27.27%, #13472F 36.36%, #144A31 45.45%, #154D33 54.55%, #164F35 63.64%, #175237 72.73%, #185539 81.82%, #19573B 90.91%, #1A5A3D 100%)'
+import SectionHeader from '../components/SectionHeader'
 
 const statistics = [
-  {
-    icon: '⏰',
-    value: '24/7',
-    label: 'دعم مستمر',
-  },
-  {
-    icon: '🤝',
-    value: '+300',
-    label: 'عميل راضٍ',
-  },
-  {
-    icon: '🏗️',
-    value: '+500',
-    label: 'مشروع منجز',
-  },
-  {
-    icon: '🏆',
-    value: '+40',
-    label: 'سنة خبرة',
-  },
+  { icon: '🏆', value: '40', plus: true, label: 'سنة خبرة' },
+  { icon: '🏗️', value: '500', plus: true, label: 'مشروع منجز' },
+  { icon: '🤝', value: '300', plus: true, label: 'عميل راضٍ' },
+  { icon: '⏰', value: '24/7', plus: false, label: 'دعم مستمر' },
 ]
 
 function Statistics() {
   return (
     <section
-      className="w-full overflow-hidden px-4 py-16 text-white sm:px-6 sm:py-20 md:px-8 lg:px-[50px] lg:py-[100px]"
+      className="relative w-full overflow-hidden px-4 py-16 text-white sm:px-8 sm:py-20 lg:px-[64px] lg:py-[128px]"
       dir="rtl"
-      style={{ background: sectionGradient }}
+      style={{ backgroundImage: 'linear-gradient(153.9deg, #0f3d27 0%, #1a5a3d 100%)' }}
     >
-      <div className="mx-auto w-full max-w-[1810px]">
-        <header className="mx-auto max-w-[980px] text-center">
-          <h2 className="text-[34px] font-black leading-tight sm:text-[44px] md:text-[52px] lg:text-[60px]">
-            أرقامنا تتحدث عن نفسها
-          </h2>
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-10">
+        <span className="absolute right-0 top-0 h-[384px] w-[384px] rounded-full bg-gold blur-[64px]" />
+        <span className="absolute bottom-0 left-0 h-[384px] w-[384px] rounded-full bg-gold blur-[64px]" />
+      </div>
 
-          <p className="mx-auto mt-5 max-w-[780px] text-[16px] font-medium leading-8 text-white/62 sm:mt-6 sm:text-[18px] lg:text-[20px]">
-            إنجازات تعكس التزامنا وتفانينا في خدمة عملائنا
-          </p>
-        </header>
+      <div className="relative mx-auto w-full max-w-[1440px]">
+        <SectionHeader
+          tone="dark"
+          title="أرقامنا تتحدث عن نفسها"
+          description="إنجازات تعكس التزامنا وتفانينا في خدمة عملائنا"
+        />
 
-        <div
-          className="mt-12 grid grid-cols-1 gap-5 sm:mt-16 sm:grid-cols-2 sm:gap-6 lg:mt-20 lg:grid-cols-4 lg:gap-8 xl:gap-10"
-          dir="ltr"
-        >
-          {statistics.map((statistic) => (
+        <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:mt-[80px] lg:grid-cols-4 lg:gap-10">
+          {statistics.map(({ icon, value, plus, label }) => (
             <article
-              key={statistic.label}
-              className="flex min-h-[230px] flex-col items-center justify-center rounded-[24px] border-2 border-white/18 bg-white/10 px-6 py-8 text-center shadow-[0_22px_48px_rgba(4,35,21,0.12)] backdrop-blur-sm sm:min-h-[300px] sm:py-10 lg:min-h-[374px] xl:rounded-[30px]"
+              key={label}
+              className="flex flex-col items-center rounded-[24px] border border-white/20 bg-white/10 px-10 py-10 text-center shadow-[0_25px_50px_rgba(0,0,0,0.25)]"
             >
-              <span
-                className="text-[46px] leading-none sm:text-[54px] lg:text-[60px]"
-                aria-hidden="true"
-              >
-                {statistic.icon}
+              <span className="text-[60px] leading-[60px]" aria-hidden="true">
+                {icon}
               </span>
 
-              <p className="mt-6 text-[44px] font-black leading-none text-[#D5A125] sm:mt-7 sm:text-[54px] lg:text-[60px]">
-                {statistic.value}
+              <p className="mt-6 flex items-start font-black text-gold" dir="ltr">
+                {plus ? <span className="mt-2 text-[48px] leading-[48px]">+</span> : null}
+                <span className="text-[60px] leading-[72px] sm:text-[72px]">{value}</span>
               </p>
 
-              <h3 className="mt-7 text-[22px] font-black leading-tight text-white sm:mt-9 sm:text-[24px] lg:mt-11">
-                {statistic.label}
-              </h3>
+              <h3 className="mt-4 text-[24px] font-bold leading-8">{label}</h3>
 
-              <span
-                className="mt-7 block h-1 w-[130px] rounded-full bg-[#D5A125] sm:mt-10 sm:w-[180px]"
-                aria-hidden="true"
-              />
+              <span className="mt-6 block h-1 w-[149px] rounded-full bg-gold" aria-hidden="true" />
             </article>
           ))}
         </div>
