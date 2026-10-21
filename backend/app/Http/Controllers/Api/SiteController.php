@@ -31,6 +31,6 @@ class SiteController extends Controller
             'gallery' => GalleryImageResource::collection(GalleryImage::orderBy('sort_order')->get()),
             'clients' => ClientResource::collection(Client::orderBy('sort_order')->get()),
             'settings' => (object) $settings,
-        ])->header('Cache-Control', 'public, max-age=60');
+        ]);
     }
 }

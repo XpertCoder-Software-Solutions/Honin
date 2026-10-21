@@ -13,6 +13,7 @@ import Footer from './Footer/Footer'
 import Works from './Works/Works'
 import Gallery from './Gallery/Gallery'
 import { useHashPath, useLocation } from './router'
+import { SiteContentProvider } from './site/content'
 import { useVisitTracking } from './site/tracking'
 
 const AdminApp = lazy(() => import('./admin/AdminApp'))
@@ -65,7 +66,11 @@ function App() {
     )
   }
 
-  return <PublicSite />
+  return (
+    <SiteContentProvider>
+      <PublicSite />
+    </SiteContentProvider>
+  )
 }
 
 export default App

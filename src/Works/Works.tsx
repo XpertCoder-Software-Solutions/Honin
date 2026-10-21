@@ -2,6 +2,7 @@ import { useState, type CSSProperties } from 'react'
 import { Image } from 'lucide-react'
 import CategoryTabs, { type Category } from '../components/CategoryTabs'
 import Lightbox from '../components/Lightbox'
+import { pick, useSiteContent } from '../site/content'
 import abhaFlies from '../assets/works/abha-flies.jpg'
 import ahsaTermites from '../assets/works/ahsa-termites.jpg'
 import bahaMonitoring from '../assets/works/baha-monitoring.jpg'
@@ -20,7 +21,7 @@ import surveying from '../assets/projects/surveying-project.jpg'
 
 type Work = { title: string; description?: string; image: string }
 
-const works: Record<Category, Work[]> = {
+const fallbackWorks: Record<Category, Work[]> = {
   'pest-control': [
     {
       title: 'مشروع القضاء على البعوض في جدة',
@@ -83,7 +84,13 @@ const works: Record<Category, Work[]> = {
 function Works() {
   const [category, setCategory] = useState<Category>('pest-control')
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
-  const items = works[category]
+  const content = useSiteContent()
+  const items = pick(
+    content?.projects
+      .filter((project) => project.category === category && project.image_url)
+      .map((project) => ({ title: project.title, description: project.description ?? undefined, image: project.image_url as string })),
+    fallbackWorks[category],
+  )
 
   return (
     <main className="w-full bg-white px-4 pb-16 pt-[128px] sm:px-8 lg:px-[84px] lg:pb-[78px] lg:pt-[284px]" dir="rtl">

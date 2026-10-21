@@ -6,6 +6,7 @@ import footerLogo from '../assets/Footer Logo.png'
 import saudiLogo from '../assets/Saudi Logo.png'
 import vatLogo from '../assets/Saudi Vat Logo.png'
 import { routeHref } from '../router'
+import { useSiteContent, type SiteContent } from '../site/content'
 
 const quickLinks = [
   { label: 'الرئيسية', href: routeHref('/') },
@@ -24,26 +25,28 @@ const services = [
   'مكافحة القوارض',
 ]
 
-const phoneNumbers = [
+const fallbackPhones = [
   { label: 'قسم المقاولات', value: '0554177768' },
   { label: 'قسم المكافحة', value: '0543958080' },
   { label: 'قسم الزراعة', value: '0508542228' },
 ]
 
-const contactEmail = 'info@honain.sa'
+const fallbackEmail = 'info@honain.sa'
 
-const registryItems = [
+const fallbackRegistry = [
   { label: 'رقم ضريبي', value: '1131021685' },
   { label: 'سجل تجاري', value: '1131021685' },
 ]
 
 // Right → left, as in the design.
-const socialLinks: Array<{ label: string; Icon: IconType }> = [
-  { label: 'Facebook', Icon: FaFacebookF },
-  { label: 'Twitter', Icon: FaTwitter },
-  { label: 'Instagram', Icon: FaInstagram },
-  { label: 'LinkedIn', Icon: FaLinkedinIn },
+const socialLinks: Array<{ key: 'facebook' | 'twitter' | 'instagram' | 'linkedin'; label: string; Icon: IconType }> = [
+  { key: 'facebook', label: 'Facebook', Icon: FaFacebookF },
+  { key: 'twitter', label: 'Twitter', Icon: FaTwitter },
+  { key: 'instagram', label: 'Instagram', Icon: FaInstagram },
+  { key: 'linkedin', label: 'LinkedIn', Icon: FaLinkedinIn },
 ]
+
+type FooterSettings = SiteContent['settings'] | undefined
 
 function ColumnTitle({ children }: { children: string }) {
   return <h2 className="text-[24px] font-extrabold leading-8 text-white">{children}</h2>
@@ -66,7 +69,14 @@ function ContactRow({ Icon, children }: { Icon: IconType; children: ReactNode })
   )
 }
 
-function BrandColumn() {
+function BrandColumn({ settings }: { settings: FooterSettings }) {
+  const registryItems = settings?.tax_number || settings?.commercial_register
+    ? [
+        { label: 'رقم ضريبي', value: settings.tax_number ?? '' },
+        { label: 'سجل تجاري', value: settings.commercial_register ?? '' },
+      ].filter((item) => item.value)
+    : fallbackRegistry
+
   return (
     <section aria-label="بيانات شركة حنين" className="flex w-full max-w-[460px] flex-col items-start gap-6">
       <img src={footerLogo} alt="Honain Contracting" className="h-[56px] w-full max-w-[392px] object-contain" loading="lazy" decoding="async" />
@@ -89,10 +99,12 @@ function BrandColumn() {
       </p>
 
       <div className="flex gap-3 self-center">
-        {socialLinks.map(({ label, Icon }) => (
+        {socialLinks.map(({ key, label, Icon }) => (
           <a
             key={label}
-            href="#"
+            href={settings?.social?.[key] || '#'}
+            target={settings?.social?.[key] ? '_blank' : undefined}
+            rel="noreferrer"
             aria-label={label}
             className="flex h-12 w-12 items-center justify-center rounded-[14px] border border-[#cfa931]/20 bg-[#cfa931]/10 text-[#cfa931] transition duration-300 hover:-translate-y-1 hover:bg-[#cfa931] hover:text-brand"
           >
@@ -137,7 +149,10 @@ function ServicesColumn() {
   )
 }
 
-function ContactColumn() {
+function ContactColumn({ settings }: { settings: FooterSettings }) {
+  const phoneNumbers = settings?.phones?.length ? settings.phones.map(({ label, number }) => ({ label, value: number })) : fallbackPhones
+  const contactEmail = settings?.email || fallbackEmail
+
   return (
     <section aria-label="تواصل معنا" className="flex w-full max-w-[413px] flex-col gap-6">
       <ColumnTitle>تواصل معنا</ColumnTitle>
@@ -165,7 +180,7 @@ function ContactColumn() {
 
         <ContactRow Icon={FiMapPin}>
           <p className="text-[14px] leading-5 text-[#99a1af]">العنوان</p>
-          <p className="mt-1 max-w-[260px] text-[18px] font-bold leading-7 text-[#d1d5dc]">الرياض، المملكة العربية السعودية</p>
+          <p className="mt-1 max-w-[260px] text-[18px] font-bold leading-7 text-[#d1d5dc]">{settings?.address || 'الرياض، المملكة العربية السعودية'}</p>
         </ContactRow>
       </div>
     </section>
@@ -173,6 +188,7 @@ function ContactColumn() {
 }
 
 function Footer() {
+  const settings = useSiteContent()?.settings
   return (
     <footer
       dir="rtl"
@@ -186,10 +202,10 @@ function Footer() {
 
       <div className="relative mx-auto w-full max-w-[1440px]">
         <div className="grid gap-x-10 gap-y-12 md:grid-cols-2 2xl:flex 2xl:items-start 2xl:justify-between">
-          <BrandColumn />
+          <BrandColumn settings={settings} />
           <QuickLinksColumn />
           <ServicesColumn />
-          <ContactColumn />
+          <ContactColumn settings={settings} />
         </div>
 
         <div className="mt-12 flex flex-col items-center gap-4 border-t border-white/20 py-8 text-center text-[#d1d5dc] lg:mt-[80px] lg:flex-row lg:justify-between lg:text-right">

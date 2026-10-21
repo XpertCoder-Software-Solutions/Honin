@@ -4,18 +4,21 @@ import {
   type FormEvent,
   type ReactNode,
 } from 'react'
-import { Mail, MapPin, Phone, Send, type LucideIcon } from 'lucide-react'
+import { Loader2, Mail, MapPin, Phone, Send, type LucideIcon } from 'lucide-react'
 import Reveal from '../components/Reveal'
 import SectionHeader from '../components/SectionHeader'
 import contactBackground from '../assets/contact-bg.jpg'
+import { API_URL, ApiError, apiRequest } from '../site/api'
+import { useSiteContent } from '../site/content'
 
-const phoneDepartments = [
+const fallbackPhones = [
   { label: 'قسم المقاولات', value: '0554177768' },
   { label: 'قسم المكافحة', value: '0543958080' },
   { label: 'قسم الزراعة', value: '0508542228' },
 ]
 
-const contactEmail = 'info@honain.sa'
+const fallbackEmail = 'info@honain.sa'
+const fallbackHours = ['السبت - الخميس: 8:00 ص - 5:00 م', 'الجمعة: مغلق']
 
 const formFields = [
   {
@@ -108,6 +111,14 @@ function FieldError({ id, message }: { id: string; message?: string }) {
 }
 
 function ContactUs() {
+  const settings = useSiteContent()?.settings
+  const phoneDepartments = settings?.phones?.length ? settings.phones.map(({ label, number }) => ({ label, value: number })) : fallbackPhones
+  const contactEmail = settings?.email || fallbackEmail
+  const address = settings?.address || 'الرياض، المملكة العربية السعودية'
+  const workingHours = settings?.working_hours?.length ? settings.working_hours : fallbackHours
+  const emergencyNote = settings?.emergency_note || 'خدمة الطوارئ متاحة 24/7'
+  const [submitting, setSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState('')
   const [formValues, setFormValues] = useState<FormValues>(initialFormValues)
   const [errors, setErrors] = useState<FormErrors>({})
   const [touched, setTouched] = useState<TouchedFields>({})
@@ -148,19 +159,47 @@ function ContactUs() {
     setErrors(validateForm(formValues))
   }
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
     const validationErrors = validateForm(formValues)
     setErrors(validationErrors)
     setTouched({ name: true, phone: true, message: true })
+    setSubmitError('')
 
     if (Object.keys(validationErrors).length > 0) {
       setSuccessMessage('')
       return
     }
 
-    setSuccessMessage('تم إرسال طلبك بنجاح، وسنتواصل معك قريبًا.')
+    if (API_URL) {
+      setSubmitting(true)
+      try {
+        const form = event.currentTarget
+        const result = await apiRequest<{ message: string }>('/quote-requests', {
+          method: 'POST',
+          body: JSON.stringify({
+            name: formValues.name.trim(),
+            phone: formValues.phone.trim(),
+            message: formValues.message.trim(),
+            website: (form.elements.namedItem('website') as HTMLInputElement | null)?.value ?? '',
+          }),
+        })
+        setSuccessMessage(result.message)
+      } catch (error) {
+        if (error instanceof ApiError && Object.keys(error.errors).length) {
+          setErrors(Object.fromEntries(Object.entries(error.errors).map(([field, messages]) => [field, messages[0]])))
+        } else {
+          setSubmitError(error instanceof ApiError && error.status === 429 ? 'لقد أرسلت عدة طلبات خلال وقت قصير. حاول مرة أخرى بعد قليل.' : 'تعذر إرسال الطلب الآن. حاول مرة أخرى أو تواصل معنا هاتفيًا.')
+        }
+        return
+      } finally {
+        setSubmitting(false)
+      }
+    } else {
+      setSuccessMessage('تم إرسال طلبك بنجاح، وسنتواصل معك قريبًا.')
+    }
+
     setFormValues(initialFormValues)
     setTouched({})
   }
@@ -236,12 +275,22 @@ function ContactUs() {
               </p>
             ) : null}
 
+            {submitError ? (
+              <p className="fade-up mt-5 rounded-[16px] bg-red-50 px-5 py-4 text-[16px] font-bold text-red-700" role="alert">
+                {submitError}
+              </p>
+            ) : null}
+
+            {/* Honeypot: hidden from people, bots fill it and get rejected by the API. */}
+            <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 opacity-0" />
+
             <button
               type="submit"
-              className="mt-6 flex h-[68px] w-full items-center justify-center gap-3 rounded-full bg-gold-gradient text-[18px] font-extrabold text-brand shadow-[0_20px_12.5px_rgba(0,0,0,0.1),0_8px_5px_rgba(0,0,0,0.1)] transition duration-200 hover:-translate-y-0.5 hover:brightness-105 active:scale-[0.98] focus:outline-none focus:ring-4 focus:ring-gold/35"
+              disabled={submitting}
+              className="mt-6 flex h-[68px] w-full items-center justify-center gap-3 rounded-full bg-gold-gradient text-[18px] font-extrabold text-brand shadow-[0_20px_12.5px_rgba(0,0,0,0.1),0_8px_5px_rgba(0,0,0,0.1)] transition duration-200 hover:-translate-y-0.5 hover:brightness-105 active:scale-[0.98] focus:outline-none focus:ring-4 focus:ring-gold/35 disabled:cursor-wait disabled:opacity-80"
             >
-              إرسال الطلب
-              <Send className="h-[22px] w-[22px] -scale-x-100" strokeWidth={2} />
+              {submitting ? 'جارٍ الإرسال…' : 'إرسال الطلب'}
+              {submitting ? <Loader2 className="h-[22px] w-[22px] animate-spin" /> : <Send className="h-[22px] w-[22px] -scale-x-100" strokeWidth={2} />}
             </button>
           </form>
           </Reveal>
@@ -275,16 +324,17 @@ function ContactUs() {
 
             <ContactCard Icon={MapPin}>
               <p className="text-[16px] font-bold leading-7 text-body sm:text-[18px]">العنوان</p>
-              <p className="mt-2 text-[18px] font-bold leading-7 text-brand sm:text-[20px]">الرياض، المملكة العربية السعودية</p>
+              <p className="mt-2 text-[18px] font-bold leading-7 text-brand sm:text-[20px]">{address}</p>
             </ContactCard>
 
             <article className="rounded-[16px] p-8 text-right text-white shadow-[0_25px_25px_rgba(0,0,0,0.25)]" style={{ backgroundImage: 'linear-gradient(161.3deg, #0f3d27 0%, #1a5a3d 100%)' }}>
               <h3 className="text-[24px] font-extrabold leading-8">ساعات العمل</h3>
               <div className="mt-4 space-y-3 text-[18px] leading-7">
-                <p>السبت - الخميس: 8:00 ص - 5:00 م</p>
-                <p>الجمعة: مغلق</p>
+                {workingHours.map((line) => (
+                  <p key={line}>{line}</p>
+                ))}
               </div>
-              <p className="mt-6 border-t border-white/20 pt-6 text-[18px] font-bold leading-7 text-gold">خدمة الطوارئ متاحة 24/7</p>
+              <p className="mt-6 border-t border-white/20 pt-6 text-[18px] font-bold leading-7 text-gold">{emergencyNote}</p>
             </article>
           </div>
           </Reveal>

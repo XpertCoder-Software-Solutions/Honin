@@ -8,7 +8,7 @@ use App\Http\Controllers\Api\VisitController;
 use Illuminate\Support\Facades\Route;
 
 // Public website
-Route::get('site', SiteController::class);
+Route::get('site', SiteController::class)->middleware('cache.headers:public;max_age=0;must_revalidate;etag');
 Route::post('quote-requests', [QuoteRequestController::class, 'store'])->middleware('throttle:quotes');
 Route::post('visits', [VisitController::class, 'store'])->middleware('throttle:visits');
 

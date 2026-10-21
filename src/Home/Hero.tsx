@@ -10,15 +10,27 @@ import {
 import constructionImage from '../assets/hero/construction.jpg'
 import landscapeImage from '../assets/hero/landscaping.jpg'
 import pestControlImage from '../assets/hero/pest-control.jpg'
+import { useSiteContent, type Category } from '../site/content'
 
-const heroItems: Array<{
+type HeroItem = {
   title: string
+  subtitle?: string | null
   cardTitle: string
   cardDescription: string
   image: string
   position?: string
   Icon: LucideIcon
-}> = [
+}
+
+const categoryIcons: Record<Category, LucideIcon> = {
+  construction: Building2,
+  landscaping: TreePine,
+  'pest-control': Bug,
+}
+
+const defaultSubtitle = 'تنفيذ مشاريع متكاملة بأعلى معايير الجودة'
+
+const fallbackItems: HeroItem[] = [
   {
     title: 'المقاولات والأعمال المساحية',
     cardTitle: 'المقاولات والأعمال المساحية',
@@ -49,7 +61,21 @@ const arrowButtonClass =
   'flex h-[56px] w-[56px] items-center justify-center rounded-full border border-white/30 bg-white/20 text-white transition hover:bg-white/30 focus:outline-none focus:ring-4 focus:ring-white/25'
 
 function Hero() {
-  const [activeIndex, setActiveIndex] = useState(0)
+  const content = useSiteContent()
+  const heroItems: HeroItem[] = content?.hero_slides.length
+    ? content.hero_slides.map((slide) => ({
+        title: slide.title,
+        subtitle: slide.subtitle,
+        cardTitle: slide.card_title,
+        cardDescription: slide.card_description ?? '',
+        image: slide.image_url ?? constructionImage,
+        // The seeded pest-control photo is portrait; keep the worker in frame.
+        position: slide.image_url?.includes('seed/hero/pest-control') ? 'object-[35%_42%]' : undefined,
+        Icon: categoryIcons[slide.category],
+      }))
+    : fallbackItems
+  const [rawIndex, setActiveIndex] = useState(0)
+  const activeIndex = rawIndex % heroItems.length
   const [isPaused, setIsPaused] = useState(false)
   const activeItem = heroItems[activeIndex]
 
@@ -75,7 +101,7 @@ function Hero() {
       <div className="relative h-[680px] overflow-hidden bg-[#07110d] text-white sm:h-[760px] lg:h-[944px]">
         {heroItems.map((item, index) => (
           <img
-            key={item.title}
+            key={`${item.title}-${index}`}
             src={item.image}
             alt=""
             aria-hidden="true"
@@ -104,7 +130,7 @@ function Hero() {
             </h1>
 
             <p className="mt-6 text-[18px] leading-[1.6] text-[#e5e7eb] sm:text-[24px] sm:leading-[39px]">
-              تنفيذ مشاريع متكاملة بأعلى معايير الجودة
+              {activeItem.subtitle || defaultSubtitle}
             </p>
 
             <div className="mt-10 flex flex-wrap items-center gap-4">
@@ -128,7 +154,7 @@ function Hero() {
         <div className="absolute inset-x-0 bottom-8 z-10 flex justify-center gap-3 lg:bottom-auto lg:top-[706px]">
           {heroItems.map((item, index) => (
             <button
-              key={item.title}
+              key={`${item.title}-${index}`}
               type="button"
               aria-label={`عرض ${item.cardTitle}`}
               aria-current={index === activeIndex}
@@ -166,7 +192,7 @@ function Hero() {
 
           return (
             <button
-              key={cardTitle}
+              key={`${cardTitle}-${index}`}
               type="button"
               onClick={() => setActiveIndex(index)}
               onMouseEnter={() => setActiveIndex(index)}
