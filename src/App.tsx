@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { lazy, Suspense, useEffect } from 'react'
 import Clients from './Home/Clients'
 import ContactUs from './Home/ContactUs'
 import OurWork from './Home/OurWork'
@@ -12,7 +12,10 @@ import Header from './Header/Header'
 import Footer from './Footer/Footer'
 import Works from './Works/Works'
 import Gallery from './Gallery/Gallery'
-import { useLocation } from './router'
+import { useHashPath, useLocation } from './router'
+import { useVisitTracking } from './site/tracking'
+
+const AdminApp = lazy(() => import('./admin/AdminApp'))
 
 function HomePage() {
   return (
@@ -30,8 +33,9 @@ function HomePage() {
   )
 }
 
-function App() {
+function PublicSite() {
   const { route, section } = useLocation()
+  useVisitTracking(route)
 
   useEffect(() => {
     if (section) {
@@ -48,6 +52,20 @@ function App() {
       <Footer />
     </div>
   )
+}
+
+function App() {
+  const path = useHashPath()
+
+  if (path === '/admin' || path.startsWith('/admin/')) {
+    return (
+      <Suspense fallback={<div className="grid min-h-screen place-items-center bg-[#f6f7f5] text-brand">جارٍ التحميل…</div>}>
+        <AdminApp />
+      </Suspense>
+    )
+  }
+
+  return <PublicSite />
 }
 
 export default App
