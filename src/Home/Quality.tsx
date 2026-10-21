@@ -7,7 +7,7 @@ const qualityItems: Array<{
   description: string
   Icon: LucideIcon
 }> = [
-  { title: 'خبرة طويلة', description: 'أكثر من 40 عاماً في تقديم الخدمات المتميزة', Icon: Award },
+  { title: 'خبرة طويلة', description: 'أكثر من 40 عامًا في تقديم الخدمات المتميزة', Icon: Award },
   { title: 'فريق محترف', description: 'كوادر مؤهلة ومدربة على أعلى مستوى', Icon: Users },
   { title: 'جودة عالية', description: 'التزام تام بمعايير الجودة العالمية', Icon: CircleCheck },
   { title: 'خدمة 24/7', description: 'متواجدون على مدار الساعة لخدمتكم', Icon: Clock },
@@ -20,7 +20,7 @@ function Quality() {
         <SectionHeader
           eyebrow="لماذا تختارنا"
           title="نتميز بالجودة والاحترافية"
-          description="نحن نضع ثقة عملائنا في المقام الأول ونسعى دائماً لتقديم أفضل الخدمات"
+          description="نحن نضع ثقة عملائنا في المقام الأول ونسعى دائمًا لتقديم أفضل الخدمات"
         />
 
         <div className="grid w-full grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">

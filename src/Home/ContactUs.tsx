@@ -60,19 +60,19 @@ function validateForm(values: FormValues) {
   if (!name) {
     errors.name = 'الاسم مطلوب'
   } else if (name.length < 3) {
-    errors.name = 'الاسم يجب أن يكون 3 أحرف على الأقل'
+    errors.name = 'يجب أن يتكون الاسم من 3 أحرف على الأقل'
   }
 
   if (!phone) {
     errors.phone = 'رقم الهاتف مطلوب'
   } else if (!saudiPhonePattern.test(phone)) {
-    errors.phone = 'أدخل رقم سعودي صحيح بصيغة 05xxxxxxxx'
+    errors.phone = 'أدخل رقمًا سعوديًا صحيحًا بصيغة 05xxxxxxxx'
   }
 
   if (!message) {
     errors.message = 'الرسالة مطلوبة'
   } else if (message.length < 10) {
-    errors.message = 'الرسالة يجب أن تكون 10 أحرف على الأقل'
+    errors.message = 'يجب أن تتكون الرسالة من 10 أحرف على الأقل'
   }
 
   return errors
@@ -160,7 +160,7 @@ function ContactUs() {
       return
     }
 
-    setSuccessMessage('تم إرسال البيانات بنجاح.')
+    setSuccessMessage('تم إرسال طلبك بنجاح، وسنتواصل معك قريبًا.')
     setFormValues(initialFormValues)
     setTouched({})
   }

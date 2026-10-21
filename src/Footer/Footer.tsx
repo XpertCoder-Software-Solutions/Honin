@@ -85,7 +85,7 @@ function BrandColumn() {
       </div>
 
       <p className="text-[18px] leading-[29.25px] text-[#d1d5dc]">
-        شركة رائدة في مجالات المقاولات والزراعة ومكافحة الآفات بخبرة تمتد لأكثر من 40 عاماً
+        شركة رائدة في مجالات المقاولات والزراعة ومكافحة الآفات بخبرة تمتد لأكثر من 40 عامًا
       </p>
 
       <div className="flex gap-3 self-center">

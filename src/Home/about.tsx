@@ -64,7 +64,7 @@ function About() {
           </p>
 
           <h2 className="text-[34px] font-bold leading-[1.25] text-ink sm:text-[46px] lg:text-[60px] lg:leading-[75px]">
-            خبرة أكثر من <span className="text-gold-gradient">40 عاماً</span>
+            خبرة أكثر من <span className="text-gold-gradient">40 عامًا</span>
             <br />
             في تنفيذ المشاريع والخدمات المتكاملة
           </h2>
@@ -109,7 +109,7 @@ function About() {
               href="#services"
               className="group/btn inline-flex h-[56px] w-full items-center justify-center gap-3 rounded-[16px] bg-gradient-to-r from-gold-bright to-[#d4ab1f] whitespace-nowrap px-8 text-[16px] font-semibold text-ink transition duration-200 hover:-translate-y-0.5 hover:brightness-105 active:scale-[0.97] focus:outline-none focus:ring-4 focus:ring-gold-bright/35 sm:w-auto sm:min-w-[194px]"
             >
-              تعرف علينا أكثر
+              تعرّف علينا أكثر
               <ArrowLeft className="h-5 w-5 transition-transform duration-300 group-hover/btn:-translate-x-1" strokeWidth={2} />
             </a>
           </div>
