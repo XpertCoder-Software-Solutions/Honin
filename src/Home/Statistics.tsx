@@ -1,8 +1,9 @@
 import Reveal from '../components/Reveal'
 import SectionHeader from '../components/SectionHeader'
 import { useCountUp, useInView } from '../hooks'
+import { useSiteContent } from '../site/content'
 
-const statistics = [
+const fallbackStatistics = [
   { icon: '🏆', value: 40, plus: true, label: 'سنة خبرة' },
   { icon: '🏗️', value: 500, plus: true, label: 'مشروع منجز' },
   { icon: '🤝', value: 300, plus: true, label: 'عميل راضٍ' },
@@ -26,6 +27,15 @@ function StatValue({ value, plus, start }: { value: number | null; plus: boolean
 
 function Statistics() {
   const { ref, inView } = useInView<HTMLDivElement>({ threshold: 0.3 })
+  const stats = useSiteContent()?.settings.stats
+  const statistics = stats
+    ? [
+        { ...fallbackStatistics[0], value: stats.years },
+        { ...fallbackStatistics[1], value: stats.projects },
+        { ...fallbackStatistics[2], value: stats.clients },
+        fallbackStatistics[3],
+      ]
+    : fallbackStatistics
 
   return (
     <section

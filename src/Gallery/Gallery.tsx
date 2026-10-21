@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { ArrowDown } from 'lucide-react'
 import CategoryTabs, { type Category } from '../components/CategoryTabs'
 import Lightbox from '../components/Lightbox'
+import { pick, useSiteContent } from '../site/content'
 import landscaping1 from '../assets/gallery/landscaping-1.jpg'
 import landscaping2 from '../assets/gallery/landscaping-2.jpg'
 import landscaping3 from '../assets/gallery/landscaping-3.jpg'
@@ -25,7 +26,7 @@ import surveying from '../assets/projects/surveying-project.jpg'
 
 const PAGE_SIZE = 6
 
-const galleryImages: Record<Category, string[]> = {
+const fallbackImages: Record<Category, string[]> = {
   landscaping: [landscaping1, landscaping2, landscaping3, landscaping4, landscaping5, landscaping6, landscaping7],
   'pest-control': [
     jeddahMosquitoes,
@@ -84,7 +85,11 @@ function Gallery() {
   const [category, setCategory] = useState<Category>('landscaping')
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE)
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
-  const images = galleryImages[category]
+  const content = useSiteContent()
+  const images = pick(
+    content?.gallery.filter((image) => image.category === category && image.image_url).map((image) => image.image_url as string),
+    fallbackImages[category],
+  )
   const usesDesignedLayout = images.length === 7
   const visibleImages = usesDesignedLayout ? images : images.slice(0, visibleCount)
   const hasMore = !usesDesignedLayout && visibleCount < images.length

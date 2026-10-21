@@ -6,9 +6,10 @@ import nationalWaterLogo from '../assets/clients/national-water-company.png'
 import riyadhMunicipalityLogo from '../assets/clients/riyadh-region-municipality.png'
 import saudiElectricityLogo from '../assets/clients/saudi-electricity-company.png'
 import Reveal from '../components/Reveal'
+import { pick, useSiteContent } from '../site/content'
 
 // Visual order left → right, as in the design.
-const clients = [
+const fallbackClients = [
   { name: 'الشركة السعودية للكهرباء', logo: saudiElectricityLogo },
   { name: 'شركة المياه الوطنية', logo: nationalWaterLogo },
   { name: 'أمانة منطقة الرياض', logo: riyadhMunicipalityLogo },
@@ -21,6 +22,11 @@ const arrowButtonClass =
 
 function Clients() {
   const trackRef = useRef<HTMLDivElement>(null)
+  const content = useSiteContent()
+  const clients = pick(
+    content?.clients.filter((client) => client.logo_url).map((client) => ({ name: client.name, logo: client.logo_url as string })),
+    fallbackClients,
+  )
 
   function scrollBy(direction: 1 | -1) {
     trackRef.current?.scrollBy({ left: direction * 242, behavior: 'smooth' })

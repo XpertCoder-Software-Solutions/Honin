@@ -1,73 +1,56 @@
-# React + TypeScript + Vite
+# حُنين — الموقع ولوحة التحكم
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+| الجزء | المسار | التقنية |
+|---|---|---|
+| الموقع العام | `src/` | React 19 + Vite + Tailwind 4 |
+| لوحة التحكم | `src/admin/` (على الرابط `#/admin`) | React، تُحمَّل عند الحاجة فقط |
+| الـ API | `backend/` | Laravel 12 + Sanctum |
 
-Currently, two official plugins are available:
+## التشغيل محليًا
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+**المتطلبات:** PHP 8.2+ و Composer و Node 20+.
 
-## React Compiler
+### 1) الـ Backend
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+cd backend
+composer install
+cp .env.example .env
+php artisan key:generate
+touch database/database.sqlite        # أو اضبط MySQL في .env
+php artisan migrate --seed            # يطبع بيانات حساب المدير الأول
+php artisan storage:link
+php artisan serve                     # http://127.0.0.1:8000
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- `migrate --seed` ينشئ حساب مدير (`ADMIN_EMAIL` في `.env`، وكلمة مرور عشوائية تظهر في الطرفية إذا كان `ADMIN_PASSWORD` فارغًا)، وينقل محتوى الموقع الحالي وصوره إلى قاعدة البيانات.
+- لتجربة لوحة التحكم ببيانات وهمية (زيارات وطلبات): `php artisan db:seed --class=DemoDataSeeder`. لا تشغّله على الإنتاج.
+- الاختبارات: `php artisan test`
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 2) الـ Frontend
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+cp .env.example .env.local            # VITE_API_URL=http://127.0.0.1:8000
+npm run dev                           # http://127.0.0.1:5173
 ```
+
+- الموقع: `http://127.0.0.1:5173/#/`
+- لوحة التحكم: `http://127.0.0.1:5173/#/admin`
+
+بدون `VITE_API_URL` يعمل الموقع بالمحتوى المدمج فيه، ونموذج طلب عرض السعر لا يرسل لأي مكان.
+
+## لوحة التحكم
+
+- **نظرة عامة:** الزيارات والزوار، طلبات عروض الأسعار يوميًا، توزيع الطلبات حسب الخدمة، الأجهزة، أكثر الصفحات زيارة.
+- **طلبات عروض الأسعار:** تصفية حسب الحالة والخدمة، بحث، اتصال وواتساب مباشر، ملاحظات داخلية، تصدير CSV يفتح في Excel.
+- **المحتوى:** شرائح الواجهة، الخدمات، المشاريع، المعرض، العملاء (رفع صور وترتيب).
+- **الإعدادات** (للمدير فقط): أرقام التواصل، البريد، العنوان، ساعات العمل، أرقام الإحصائيات، الروابط الاجتماعية، بريد تنبيهات الطلبات.
+- **المستخدمون** (للمدير فقط): صلاحيتان، **مدير النظام** و**محرر** (المحرر يدير المحتوى والطلبات فقط).
+
+## ملاحظات للنشر
+
+- `APP_URL` في `backend/.env` يجب أن يكون الرابط العام للـ API، لأن روابط الصور تُبنى منه.
+- `FRONTEND_URLS` تحدد المواقع المسموح لها باستدعاء الـ API (CORS)، و`FRONTEND_URL` تُستخدم في روابط بريد التنبيهات.
+- لإرسال بريد التنبيهات اضبط إعدادات `MAIL_*` في `.env` (الافتراضي `log` يكتب الرسائل في `storage/logs`).
+- الزيارات تُسجَّل بدون حفظ عناوين IP (بصمة يومية مشفرة)، ويتم تجاهل محركات البحث والبوتات.

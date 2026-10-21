@@ -27,6 +27,16 @@ export function useLocation(): { route: Route; section: string | null } {
   return { route: '/', section: hash ? decodeURIComponent(hash.slice(1)) : null }
 }
 
+/** Raw hash path, e.g. "/admin/projects" for "#/admin/projects?x=1". */
+export function useHashPath() {
+  const hash = useSyncExternalStore(subscribe, getHash)
+  return hash.startsWith('#/') ? hash.slice(1).split('?')[0] : '/'
+}
+
+export function navigate(path: string) {
+  window.location.hash = path
+}
+
 export function routeHref(route: Route) {
   return route === '/' ? '#/' : `#${route}`
 }

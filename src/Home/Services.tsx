@@ -6,8 +6,10 @@ import {
   type LucideIcon,
 } from 'lucide-react'
 import Reveal from '../components/Reveal'
+import { useSiteContent, type Category } from '../site/content'
 
-const services: Array<{
+const fallbackServices: Array<{
+  category: Category
   number: string
   title: string
   description: string
@@ -16,6 +18,7 @@ const services: Array<{
   features: string[]
 }> = [
   {
+    category: 'construction',
     number: '01',
     title: 'المقاولات والأعمال المساحية',
     description:
@@ -35,6 +38,7 @@ const services: Array<{
     ],
   },
   {
+    category: 'landscaping',
     number: '02',
     title: 'الزراعة وتنسيق الحدائق',
     description:
@@ -53,6 +57,7 @@ const services: Array<{
     ],
   },
   {
+    category: 'pest-control',
     number: '03',
     title: 'مكافحة الحشرات والقوارض',
     description:
@@ -72,6 +77,15 @@ const services: Array<{
 ]
 
 function Services() {
+  const content = useSiteContent()
+  // Visuals (number, icon, border) stay fixed per category; the text comes from the dashboard.
+  const services = fallbackServices.map((service) => {
+    const fromApi = content?.services.find((item) => item.category === service.category)
+    return fromApi
+      ? { ...service, title: fromApi.title, description: fromApi.description ?? '', features: fromApi.features }
+      : service
+  })
+
   return (
     <section
       id="services"

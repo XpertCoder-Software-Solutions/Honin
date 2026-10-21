@@ -2,6 +2,7 @@ import { ExternalLink } from 'lucide-react'
 import Reveal from '../components/Reveal'
 import SectionHeader from '../components/SectionHeader'
 import { routeHref } from '../router'
+import { pick, useSiteContent } from '../site/content'
 import commercialTowerImage from '../assets/projects/commercial-tower.jpg'
 import infrastructureImage from '../assets/projects/infrastructure-project.jpg'
 import landscapeImage from '../assets/projects/landscape-coordination.jpg'
@@ -9,7 +10,7 @@ import luxuryGardenImage from '../assets/projects/luxury-garden-design.jpg'
 import residentialComplexImage from '../assets/projects/modern-residential-complex.jpg'
 import surveyingImage from '../assets/projects/surveying-project.jpg'
 
-const projects = [
+const fallbackProjects = [
   { category: 'مقاولات', title: 'مشروع البنية التحتية', image: infrastructureImage },
   { category: 'زراعة', title: 'تصميم حديقة فاخرة', image: luxuryGardenImage },
   { category: 'مقاولات', title: 'مجمع سكني حديث', image: residentialComplexImage },
@@ -18,7 +19,18 @@ const projects = [
   { category: 'مقاولات', title: 'برج تجاري', image: commercialTowerImage },
 ]
 
+const shortCategory = { construction: 'مقاولات', landscaping: 'زراعة', 'pest-control': 'مكافحة' } as const
+
 function OurWork() {
+  const content = useSiteContent()
+  const projects = pick(
+    content?.projects
+      .filter((project) => project.is_featured && project.image_url)
+      .slice(0, 6)
+      .map((project) => ({ category: shortCategory[project.category], title: project.title, image: project.image_url as string })),
+    fallbackProjects,
+  )
+
   return (
     <section id="work" className="w-full scroll-mt-8 bg-cream px-4 py-16 sm:px-8 sm:py-20 lg:px-[64px] lg:py-[128px]" dir="rtl">
       <div className="mx-auto flex w-full max-w-[1440px] flex-col items-center">
