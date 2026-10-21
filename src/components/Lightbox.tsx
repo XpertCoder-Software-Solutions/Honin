@@ -41,13 +41,14 @@ function Lightbox({ images, index, onClose, onChange }: LightboxProps) {
       role="dialog"
       aria-modal="true"
       aria-label={image.alt}
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/85 p-4"
+      className="lightbox-backdrop fixed inset-0 z-[100] flex items-center justify-center bg-black/85 p-4 backdrop-blur-sm"
       onClick={onClose}
     >
       <img
+        key={image.src}
         src={image.src}
         alt={image.alt}
-        className="max-h-[85vh] max-w-full rounded-[16px] object-contain"
+        className="lightbox-image max-h-[85vh] max-w-full rounded-[16px] object-contain shadow-2xl"
         onClick={(event) => event.stopPropagation()}
       />
 
