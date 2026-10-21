@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from 'react'
+import { useEffect, useState, type ReactNode } from 'react'
 import {
   Briefcase,
   ExternalLink,
@@ -47,7 +47,36 @@ const navGroups: Array<{ title?: string; items: NavItem[] }> = [
   },
 ]
 
-function Sidebar({ path, onNavigate }: { path: string; onNavigate: () => void }) {
+const REFRESH_MS = 60_000
+
+/** Number of quote requests still marked "new"; refreshed every minute and whenever a request changes. */
+function useNewQuotesCount() {
+  const { request } = useAuth()
+  const [count, setCount] = useState(0)
+
+  useEffect(() => {
+    let cancelled = false
+    const load = () =>
+      request<{ counts: Record<string, number> }>('/admin/quote-requests?status=new&per_page=5')
+        .then(({ counts }) => !cancelled && setCount(counts.new ?? 0))
+        .catch(() => {})
+
+    load()
+    const timer = window.setInterval(load, REFRESH_MS)
+    window.addEventListener('quotes-changed', load)
+    window.addEventListener('focus', load)
+    return () => {
+      cancelled = true
+      window.clearInterval(timer)
+      window.removeEventListener('quotes-changed', load)
+      window.removeEventListener('focus', load)
+    }
+  }, [request])
+
+  return count
+}
+
+function Sidebar({ path, onNavigate, newQuotes }: { path: string; onNavigate: () => void; newQuotes: number }) {
   const { user, logout } = useAuth()
 
   return (
@@ -79,7 +108,12 @@ function Sidebar({ path, onNavigate }: { path: string; onNavigate: () => void })
                         }`}
                       >
                         <Icon className={`h-5 w-5 shrink-0 ${active ? 'text-gold' : ''}`} strokeWidth={2} />
-                        {label}
+                        <span className="flex-1 whitespace-nowrap">{label}</span>
+                        {itemPath === '/admin/quotes' && newQuotes > 0 ? (
+                          <span className="min-w-6 rounded-full bg-gold-bright px-2 py-0.5 text-center text-[12px] font-black text-brand tabular-nums" aria-label={`${newQuotes} طلب جديد`}>
+                            {newQuotes}
+                          </span>
+                        ) : null}
                       </a>
                     </li>
                   )
@@ -124,20 +158,28 @@ function Sidebar({ path, onNavigate }: { path: string; onNavigate: () => void })
   )
 }
 
-function Layout({ path, children }: { path: string; children: ReactNode }) {
+function Layout({ path, title, children }: { path: string; title: string; children: ReactNode }) {
   const [open, setOpen] = useState(false)
+  const newQuotes = useNewQuotesCount()
+
+  useEffect(() => {
+    document.title = `${newQuotes ? `(${newQuotes}) ` : ''}${title} | لوحة تحكم حُنين`
+    return () => {
+      document.title = 'Honain'
+    }
+  }, [title, newQuotes])
 
   return (
     <div className="min-h-screen bg-[#f6f7f5]" dir="rtl">
       <aside className="fixed inset-y-0 right-0 z-40 hidden w-[264px] lg:block">
-        <Sidebar path={path} onNavigate={() => {}} />
+        <Sidebar path={path} onNavigate={() => {}} newQuotes={newQuotes} />
       </aside>
 
       {open ? (
         <div className="fixed inset-0 z-50 lg:hidden">
           <button type="button" aria-label="إغلاق القائمة" className="lightbox-backdrop absolute inset-0 bg-black/40" onClick={() => setOpen(false)} />
           <aside className="fade-up absolute inset-y-0 right-0 w-[280px] max-w-[85vw] shadow-2xl">
-            <Sidebar path={path} onNavigate={() => setOpen(false)} />
+            <Sidebar path={path} onNavigate={() => setOpen(false)} newQuotes={newQuotes} />
             <button type="button" aria-label="إغلاق القائمة" onClick={() => setOpen(false)} className="absolute left-3 top-5 rounded-[10px] p-2 text-white/80 hover:bg-white/10">
               <X className="h-5 w-5" />
             </button>
@@ -150,7 +192,12 @@ function Layout({ path, children }: { path: string; children: ReactNode }) {
           <button type="button" aria-label="فتح القائمة" onClick={() => setOpen(true)} className="rounded-[10px] p-2 text-brand hover:bg-[#eef1ee]">
             <Menu className="h-6 w-6" />
           </button>
-          <span className="text-[16px] font-extrabold text-brand">لوحة تحكم حُنين</span>
+          <span className="flex-1 text-[16px] font-extrabold text-brand">لوحة تحكم حُنين</span>
+          {newQuotes > 0 ? (
+            <a href="#/admin/quotes" className="rounded-full bg-gold-bright px-3 py-1 text-[13px] font-black text-brand">
+              {newQuotes} طلب جديد
+            </a>
+          ) : null}
         </header>
 
         <main className="mx-auto w-full max-w-[1280px] px-4 py-6 sm:px-6 lg:px-8 lg:py-8">{children}</main>

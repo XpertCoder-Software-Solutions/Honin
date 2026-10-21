@@ -2,13 +2,10 @@
 
 namespace Tests\Feature;
 
-use App\Mail\NewQuoteRequest;
 use App\Models\PageVisit;
 use App\Models\Project;
 use App\Models\QuoteRequest;
-use App\Models\Setting;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
 class PublicApiTest extends TestCase
@@ -47,10 +44,21 @@ class PublicApiTest extends TestCase
         ])->assertUnprocessable()->assertJsonValidationErrors('phone');
     }
 
+    public function test_quote_request_requires_a_service(): void
+    {
+        $this->postJson('/api/quote-requests', [
+            'name' => 'محمد أحمد', 'phone' => '0551234567', 'message' => 'رسالة طويلة بما يكفي',
+        ])->assertUnprocessable()->assertJsonValidationErrors('service');
+
+        $this->postJson('/api/quote-requests', [
+            'name' => 'محمد أحمد', 'phone' => '0551234567', 'service' => 'cooking', 'message' => 'رسالة طويلة بما يكفي',
+        ])->assertUnprocessable()->assertJsonValidationErrors('service');
+    }
+
     public function test_honeypot_blocks_bots(): void
     {
         $this->postJson('/api/quote-requests', [
-            'name' => 'Bot', 'phone' => '0551234567', 'message' => 'spam spam spam', 'website' => 'http://spam.test',
+            'name' => 'Bot', 'phone' => '0551234567', 'service' => 'construction', 'message' => 'spam spam spam', 'website' => 'http://spam.test',
         ])->assertUnprocessable();
 
         $this->assertDatabaseCount('quote_requests', 0);
@@ -64,24 +72,5 @@ class PublicApiTest extends TestCase
         $visit = PageVisit::sole();
         $this->assertSame('/works', $visit->path);
         $this->assertSame('mobile', $visit->device);
-    }
-
-    public function test_team_is_emailed_when_notify_email_is_set(): void
-    {
-        Mail::fake();
-        Setting::create(['key' => 'notify_email', 'value' => 'sales@honain.sa']);
-
-        $this->postJson('/api/quote-requests', [
-            'name' => 'محمد أحمد', 'phone' => '0551234567', 'message' => 'أرغب في تنسيق حديقة منزلية',
-        ])->assertCreated();
-
-        Mail::assertSent(NewQuoteRequest::class, fn ($mail) => $mail->hasTo('sales@honain.sa'));
-    }
-
-    public function test_notify_email_is_not_exposed_publicly(): void
-    {
-        Setting::create(['key' => 'notify_email', 'value' => 'sales@honain.sa']);
-
-        $this->getJson('/api/site')->assertJsonMissingPath('settings.notify_email');
     }
 }

@@ -30,7 +30,6 @@ class SettingController extends Controller
         'stats.years' => ['integer', 'min:0'],
         'stats.projects' => ['integer', 'min:0'],
         'stats.clients' => ['integer', 'min:0'],
-        'notify_email' => ['sometimes', 'nullable', 'email', 'max:120'],
     ];
 
     public function show(): JsonResponse

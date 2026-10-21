@@ -36,11 +36,12 @@ function Router() {
   const page = pages[path] ?? pages['/admin']
 
   useEffect(() => {
-    document.title = `${user ? page.title : 'تسجيل الدخول'} | لوحة تحكم حُنين`
+    if (user) return
+    document.title = 'تسجيل الدخول | لوحة تحكم حُنين'
     return () => {
       document.title = 'Honain'
     }
-  }, [page, user])
+  }, [user])
 
   if (status === 'loading') {
     return <div className="grid min-h-screen place-items-center bg-[#f6f7f5] text-[15px] font-bold text-brand">جارٍ التحميل…</div>
@@ -49,7 +50,7 @@ function Router() {
   if (!user) return <LoginPage />
 
   return (
-    <Layout path={path}>
+    <Layout path={path} title={page.title}>
       {page.adminOnly && user.role !== 'admin' ? (
         <EmptyState icon={<ShieldAlert className="h-7 w-7" />} title="لا تملك صلاحية الوصول" description="هذه الصفحة متاحة لمدير النظام فقط." />
       ) : (

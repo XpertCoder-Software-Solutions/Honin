@@ -38,6 +38,7 @@ function QuoteDetail({ quoteId, onClose, onChanged }: { quoteId: number; onClose
       setData(result)
       setNotes(null)
       onChanged()
+      window.dispatchEvent(new Event('quotes-changed'))
       toast('تم حفظ التغييرات')
     } catch (err) {
       toast(errorMessage(err), 'error')
@@ -52,6 +53,7 @@ function QuoteDetail({ quoteId, onClose, onChanged }: { quoteId: number; onClose
       await request(`/admin/quote-requests/${quoteId}`, { method: 'DELETE' })
       toast('تم حذف الطلب')
       onChanged()
+      window.dispatchEvent(new Event('quotes-changed'))
       onClose()
     } catch (err) {
       toast(errorMessage(err), 'error')
