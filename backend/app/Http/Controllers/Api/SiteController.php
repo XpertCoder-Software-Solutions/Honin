@@ -15,14 +15,13 @@ use App\Models\Project;
 use App\Models\Service;
 use App\Models\Setting;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Arr;
 
 /** Everything the public website renders, in one cacheable request. */
 class SiteController extends Controller
 {
     public function __invoke(): JsonResponse
     {
-        $settings = Arr::except(Setting::allAsArray(), ['notify_email']);
+        $settings = Setting::allAsArray();
 
         return response()->json([
             'hero_slides' => HeroSlideResource::collection(HeroSlide::where('is_active', true)->orderBy('sort_order')->get()),

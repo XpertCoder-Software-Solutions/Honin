@@ -60,15 +60,6 @@ function SettingsForm({ initial }: { initial: Settings }) {
           <TextInput label="البريد الإلكتروني" type="email" dir="ltr" value={values.email ?? ''} error={errors.email} onChange={(event) => set('email', event.target.value)} />
           <TextInput label="العنوان" value={values.address ?? ''} error={errors.address} onChange={(event) => set('address', event.target.value)} />
           <TextInput label="ملاحظة الطوارئ" value={values.emergency_note ?? ''} onChange={(event) => set('emergency_note', event.target.value)} />
-          <TextInput
-            label="بريد استقبال تنبيهات الطلبات"
-            type="email"
-            dir="ltr"
-            hint="لا يظهر في الموقع"
-            value={values.notify_email ?? ''}
-            error={errors.notify_email}
-            onChange={(event) => set('notify_email', event.target.value)}
-          />
         </div>
 
         <p className="mb-2 mt-5 text-[14px] font-bold text-ink">ساعات العمل</p>

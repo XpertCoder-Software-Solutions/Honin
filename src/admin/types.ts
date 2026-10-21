@@ -99,7 +99,6 @@ export type Settings = {
   commercial_register?: string | null
   social?: Partial<Record<'facebook' | 'twitter' | 'instagram' | 'linkedin', string | null>>
   stats?: { years: number; projects: number; clients: number }
-  notify_email?: string | null
 }
 
 export type DailyPoint = { date: string; visits: number; visitors: number; quotes: number }
