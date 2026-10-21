@@ -20,11 +20,12 @@ class QuoteRequestController extends Controller
         $data = $request->validate([
             'name' => ['required', 'string', 'min:3', 'max:120'],
             'phone' => ['required', 'regex:/^05\d{8}$/'],
-            'service' => ['nullable', Rule::enum(Category::class)],
+            'service' => ['required', Rule::enum(Category::class)],
             'message' => ['required', 'string', 'min:10', 'max:2000'],
             'website' => ['prohibited'], // honeypot: real visitors never fill this hidden field
         ], [
             'phone.regex' => 'أدخل رقمًا سعوديًا صحيحًا بصيغة 05xxxxxxxx.',
+            'service.required' => 'اختر الخدمة المطلوبة.',
         ]);
 
         $quote = QuoteRequest::create([...$data, 'ip_hash' => hash('sha256', $request->ip().config('app.key'))]);
