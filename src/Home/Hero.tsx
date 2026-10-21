@@ -16,6 +16,7 @@ const heroItems: Array<{
   cardTitle: string
   cardDescription: string
   image: string
+  position?: string
   Icon: LucideIcon
 }> = [
   {
@@ -37,6 +38,7 @@ const heroItems: Array<{
     cardTitle: 'مكافحة الحشرات والقوارض',
     cardDescription: 'حلول آمنة وفعالة لمكافحة الآفات',
     image: pestControlImage,
+    position: 'object-[35%_42%]',
     Icon: Bug,
   },
 ]
@@ -77,7 +79,7 @@ function Hero() {
             src={item.image}
             alt=""
             aria-hidden="true"
-            className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ease-in-out ${
+            className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ease-in-out ${item.position ?? 'object-center'} ${
               index === activeIndex ? 'ken-burns opacity-100' : 'opacity-0'
             }`}
           />
@@ -85,9 +87,10 @@ function Hero() {
 
         <span
           aria-hidden="true"
-          className="absolute inset-0 bg-gradient-to-r from-black/[0.21] via-black/[0.15] to-transparent"
+          className="absolute inset-0 bg-gradient-to-l from-black/60 via-black/30 to-black/5"
         />
-        <span aria-hidden="true" className="absolute inset-0 bg-black/25 lg:hidden" />
+        <span aria-hidden="true" className="absolute inset-0 bg-black/20 lg:hidden" />
+        <span aria-hidden="true" className="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-black/35 to-transparent" />
 
         <div className="relative z-10 mx-auto flex h-full w-full max-w-[1568px] items-center px-4 pt-16 sm:px-8 lg:px-16 lg:pt-0">
           <div key={activeItem.title} className="hero-content-enter w-full max-w-[768px] text-right" aria-live="polite">

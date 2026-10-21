@@ -18,7 +18,7 @@ const aboutCards: Array<{
 }> = [
   { title: 'المقاولات والأعمال المساحية', image: constructionImage, Icon: Building2 },
   { title: 'الزراعة وتنسيق الحدائق', image: landscapeImage, Icon: Sprout },
-  { title: 'مكافحة الآفات والقوارض', image: pestControlImage, Icon: Bug },
+  { title: 'مكافحة الحشرات والقوارض', image: pestControlImage, Icon: Bug },
 ]
 
 function AboutCard({ title, image, Icon }: (typeof aboutCards)[number]) {
@@ -70,7 +70,7 @@ function About() {
           </h2>
 
           <p className="mt-7 max-w-[732px] text-[16px] leading-[29.25px] text-muted sm:text-[18px]">
-            تُعد شركة حنين من الشركات الرائدة والمتخصصة في تقديم مجموعة متكاملة من الخدمات في مجالات المقاولات والأعمال المساحية، والزراعة وتنسيق الحدائق، ومكافحة الآفات والحشرات.
+            تُعد شركة حنين من الشركات الرائدة والمتخصصة في تقديم مجموعة متكاملة من الخدمات في مجالات المقاولات والأعمال المساحية، والزراعة وتنسيق الحدائق، ومكافحة الحشرات والقوارض.
           </p>
         </header>
         </Reveal>
