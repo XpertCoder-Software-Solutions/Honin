@@ -4,7 +4,7 @@ import {
   type FormEvent,
   type ReactNode,
 } from 'react'
-import { Loader2, Mail, MapPin, Phone, Send, type LucideIcon } from 'lucide-react'
+import { ChevronDown, Loader2, Mail, MapPin, Phone, Send, type LucideIcon } from 'lucide-react'
 import Reveal from '../components/Reveal'
 import SectionHeader from '../components/SectionHeader'
 import contactBackground from '../assets/contact-bg.jpg'
@@ -37,9 +37,16 @@ const formFields = [
   },
 ] as const
 
+const serviceOptions = [
+  { value: 'construction', label: 'المقاولات والأعمال المساحية' },
+  { value: 'landscaping', label: 'الزراعة وتنسيق الحدائق' },
+  { value: 'pest-control', label: 'مكافحة الحشرات والقوارض' },
+] as const
+
 type FormValues = {
   name: string
   phone: string
+  service: string
   message: string
 }
 
@@ -49,6 +56,7 @@ type TouchedFields = Partial<Record<keyof FormValues, boolean>>
 const initialFormValues: FormValues = {
   name: '',
   phone: '',
+  service: '',
   message: '',
 }
 
@@ -70,6 +78,10 @@ function validateForm(values: FormValues) {
     errors.phone = 'رقم الهاتف مطلوب'
   } else if (!saudiPhonePattern.test(phone)) {
     errors.phone = 'أدخل رقمًا سعوديًا صحيحًا بصيغة 05xxxxxxxx'
+  }
+
+  if (!values.service) {
+    errors.service = 'اختر الخدمة المطلوبة'
   }
 
   if (!message) {
@@ -125,7 +137,7 @@ function ContactUs() {
   const [successMessage, setSuccessMessage] = useState('')
 
   const handleChange = (
-    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
   ) => {
     const fieldName = event.target.name as keyof FormValues
     const fieldValue =
@@ -148,7 +160,7 @@ function ContactUs() {
   }
 
   const handleBlur = (
-    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
   ) => {
     const fieldName = event.target.name as keyof FormValues
 
@@ -164,7 +176,7 @@ function ContactUs() {
 
     const validationErrors = validateForm(formValues)
     setErrors(validationErrors)
-    setTouched({ name: true, phone: true, message: true })
+    setTouched({ name: true, phone: true, service: true, message: true })
     setSubmitError('')
 
     if (Object.keys(validationErrors).length > 0) {
@@ -181,6 +193,7 @@ function ContactUs() {
           body: JSON.stringify({
             name: formValues.name.trim(),
             phone: formValues.phone.trim(),
+            service: formValues.service,
             message: formValues.message.trim(),
             website: (form.elements.namedItem('website') as HTMLInputElement | null)?.value ?? '',
           }),
@@ -251,6 +264,33 @@ function ContactUs() {
                   <FieldError id={`${id}-error`} message={errors[id]} />
                 </label>
               ))}
+
+              <label htmlFor="service" className="block text-[18px] font-bold leading-7 text-[#364153]">
+                الخدمة المطلوبة
+                <span className="relative block">
+                  <select
+                    id="service"
+                    name="service"
+                    value={formValues.service}
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    aria-invalid={Boolean(errors.service)}
+                    aria-describedby={errors.service ? 'service-error' : undefined}
+                    className={`${inputClass(Boolean(errors.service))} h-[64px] cursor-pointer appearance-none pl-14 font-normal ${formValues.service ? '' : 'text-[#0a0a0a]/50'}`}
+                  >
+                    <option value="" disabled>
+                      اختر الخدمة
+                    </option>
+                    {serviceOptions.map((option) => (
+                      <option key={option.value} value={option.value} className="text-[#0a0a0a]">
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+                  <ChevronDown aria-hidden="true" className="pointer-events-none absolute left-6 top-1/2 mt-1.5 h-5 w-5 -translate-y-1/2 text-[#0a0a0a]/50" />
+                </span>
+                <FieldError id="service-error" message={errors.service} />
+              </label>
 
               <label htmlFor="message" className="block text-[18px] font-bold leading-7 text-[#364153]">
                 الرسالة
