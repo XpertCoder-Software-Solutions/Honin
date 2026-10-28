@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import kafdLogo from '../assets/clients/kafd.png'
 import modonLogo from '../assets/clients/modon.png'
@@ -24,6 +24,7 @@ import nabhaniaMunicipalityLogo from '../assets/clients/nabhania-municipality.pn
 import alfuwayliqMunicipalityLogo from '../assets/clients/alfuwayliq-municipality.png'
 import albadaieMunicipalityLogo from '../assets/clients/albadaie-municipality.png'
 import Reveal from '../components/Reveal'
+import { prefersReducedMotion } from '../hooks'
 import { pick, useSiteContent } from '../site/content'
 
 // Visual order left → right, as in the design.
@@ -56,17 +57,71 @@ const fallbackClients = [
 const arrowButtonClass =
   'hidden h-[56px] w-[56px] shrink-0 items-center justify-center rounded-full border border-white/30 bg-white/20 text-white transition hover:bg-white/30 focus:outline-none focus:ring-4 focus:ring-white/25 sm:flex'
 
+// Card width (220) + gap (22).
+const CARD_STEP = 242
+// Auto-scroll speed in px per second.
+const AUTO_SPEED = 40
+
 function Clients() {
   const trackRef = useRef<HTMLDivElement>(null)
+  // Auto-scroll stops while the pointer, focus or a finger is on the track, and briefly after an arrow click.
+  const pausedRef = useRef(false)
+  const resumeAtRef = useRef(0)
   const content = useSiteContent()
   const clients = pick(
     content?.clients.filter((client) => client.logo_url).map((client) => ({ name: client.name, logo: client.logo_url as string })),
     fallbackClients,
   )
+  const autoScroll = clients.length > 1 && !prefersReducedMotion()
+
+  useEffect(() => {
+    const track = trackRef.current
+    if (!track || !autoScroll) return
+
+    let frame = 0
+    let last = performance.now()
+    let position = track.scrollLeft
+
+    const tick = (now: number) => {
+      const elapsed = Math.min(now - last, 100)
+      last = now
+      // The list is rendered twice, so jumping back by one copy's width is seamless.
+      const loopWidth = track.scrollWidth / 2
+      if (pausedRef.current || now < resumeAtRef.current) {
+        position = track.scrollLeft
+      } else {
+        position += (AUTO_SPEED * elapsed) / 1000
+        if (position >= loopWidth) position -= loopWidth
+        track.scrollLeft = position
+      }
+      frame = requestAnimationFrame(tick)
+    }
+
+    frame = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(frame)
+  }, [autoScroll, clients.length])
 
   function scrollBy(direction: 1 | -1) {
-    trackRef.current?.scrollBy({ left: direction * 242, behavior: 'smooth' })
+    const track = trackRef.current
+    if (!track) return
+    resumeAtRef.current = performance.now() + 2500
+    if (autoScroll) {
+      const loopWidth = track.scrollWidth / 2
+      if (direction === -1 && track.scrollLeft < CARD_STEP) track.scrollLeft += loopWidth
+      if (direction === 1 && track.scrollLeft >= loopWidth) track.scrollLeft -= loopWidth
+    }
+    track.scrollBy({ left: direction * CARD_STEP, behavior: 'smooth' })
   }
+
+  function pause() {
+    pausedRef.current = true
+  }
+
+  function resume() {
+    pausedRef.current = false
+  }
+
+  const items = autoScroll ? [...clients, ...clients] : clients
 
   return (
     <section
@@ -91,13 +146,23 @@ function Clients() {
             <ChevronLeft className="h-6 w-6" strokeWidth={2} />
           </button>
 
+          <Reveal variant="fade" className="min-w-0 max-w-[1188px]">
           <div
             ref={trackRef}
-            className="-my-3 flex max-w-[1188px] snap-x gap-[22px] overflow-x-auto py-3 scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            onMouseEnter={pause}
+            onMouseLeave={resume}
+            onFocus={pause}
+            onBlur={resume}
+            onTouchStart={pause}
+            onTouchEnd={resume}
+            className={`-my-3 flex gap-[22px] overflow-x-auto py-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden ${autoScroll ? '[mask-image:linear-gradient(to_right,transparent,black_6%,black_94%,transparent)]' : 'snap-x'}`}
           >
-            {clients.map((client, index) => (
-              <Reveal key={client.name} delay={index * 90} variant="scale" className="shrink-0 snap-start">
-              <div className="group flex h-[245px] w-[220px] rounded-[24px] border border-[#e5e5e6]/70 bg-white/5 p-4 transition duration-300 hover:-translate-y-1.5 hover:border-gold-bright hover:bg-white/10">
+            {items.map((client, index) => (
+              <div
+                key={`${client.name}-${index}`}
+                aria-hidden={index >= clients.length || undefined}
+                className="group flex h-[245px] w-[220px] shrink-0 snap-start rounded-[24px] border border-[#e5e5e6]/70 bg-white/5 p-4 transition duration-300 hover:-translate-y-1.5 hover:border-gold-bright hover:bg-white/10"
+              >
                 <div className="h-full w-full overflow-hidden rounded-[16px] bg-white">
                   <img
                     src={client.logo}
@@ -108,9 +173,9 @@ function Clients() {
                   />
                 </div>
               </div>
-              </Reveal>
             ))}
           </div>
+          </Reveal>
 
           <button type="button" aria-label="التالي" onClick={() => scrollBy(1)} className={arrowButtonClass}>
             <ChevronRight className="h-6 w-6" strokeWidth={2} />
