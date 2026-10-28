@@ -12,7 +12,6 @@ function SettingsForm({ initial }: { initial: Settings }) {
   const [values, setValues] = useState<Settings>({
     phones: [],
     working_hours: [],
-    social: {},
     stats: { years: 0, projects: 0, clients: 0 },
     ...initial,
   })
@@ -82,22 +81,10 @@ function SettingsForm({ initial }: { initial: Settings }) {
         </div>
       </Card>
 
-      <Card title="البيانات الرسمية وروابط التواصل الاجتماعي">
+      <Card title="البيانات الرسمية">
         <div className="grid gap-4 md:grid-cols-2">
           <TextInput label="الرقم الضريبي" dir="ltr" value={values.tax_number ?? ''} onChange={(event) => set('tax_number', event.target.value)} />
           <TextInput label="السجل التجاري" dir="ltr" value={values.commercial_register ?? ''} onChange={(event) => set('commercial_register', event.target.value)} />
-          {(['facebook', 'twitter', 'instagram', 'linkedin'] as const).map((network) => (
-            <TextInput
-              key={network}
-              label={{ facebook: 'فيسبوك', twitter: 'إكس (تويتر)', instagram: 'إنستغرام', linkedin: 'لينكدإن' }[network]}
-              type="url"
-              dir="ltr"
-              placeholder="https://"
-              value={values.social?.[network] ?? ''}
-              error={errors[`social.${network}`]}
-              onChange={(event) => set('social', { ...values.social, [network]: event.target.value || null })}
-            />
-          ))}
         </div>
       </Card>
 

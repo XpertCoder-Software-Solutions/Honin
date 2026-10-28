@@ -97,7 +97,6 @@ export type Settings = {
   emergency_note?: string | null
   tax_number?: string | null
   commercial_register?: string | null
-  social?: Partial<Record<'facebook' | 'twitter' | 'instagram' | 'linkedin', string | null>>
   stats?: { years: number; projects: number; clients: number }
 }
 

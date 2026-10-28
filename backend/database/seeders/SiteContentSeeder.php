@@ -147,6 +147,11 @@ class SiteContentSeeder extends Seeder
             ['بلدية محافظة الغاط', 'clients/alghat-municipality.png'],
             ['بلدية حوطة سدير', 'clients/hawtat-sudair-municipality.png'],
             ['عميل القطاع الزراعي', 'clients/agriculture-client.png'],
+            ['بلدية البكيرية', 'clients/bukayriyah-municipality.png'],
+            ['بلدية محافظة عيون الجواء', 'clients/uyun-aljiwa-municipality.png'],
+            ['بلدية قبة', 'clients/qubbah-municipality.png'],
+            ['بلدية محافظة عنيزة', 'clients/unaizah-municipality.png'],
+            ['جامعة حائل', 'clients/university-of-hail.png'],
         ];
 
         foreach ($clients as $order => [$name, $logo]) {
@@ -168,7 +173,6 @@ class SiteContentSeeder extends Seeder
             'emergency_note' => 'خدمة الطوارئ متاحة 24/7',
             'tax_number' => '311269301900003',
             'commercial_register' => '1131021685',
-            'social' => ['facebook' => null, 'twitter' => null, 'instagram' => null, 'linkedin' => null],
             'stats' => ['years' => 40, 'projects' => 300, 'clients' => 900],
         ];
 

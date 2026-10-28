@@ -10,6 +10,11 @@ import asyahMunicipalityLogo from '../assets/clients/asyah-municipality.png'
 import alghatMunicipalityLogo from '../assets/clients/alghat-municipality.png'
 import hawtatSudairMunicipalityLogo from '../assets/clients/hawtat-sudair-municipality.png'
 import agricultureClientLogo from '../assets/clients/agriculture-client.png'
+import bukayriyahMunicipalityLogo from '../assets/clients/bukayriyah-municipality.png'
+import uyunAljiwaMunicipalityLogo from '../assets/clients/uyun-aljiwa-municipality.png'
+import qubbahMunicipalityLogo from '../assets/clients/qubbah-municipality.png'
+import unaizahMunicipalityLogo from '../assets/clients/unaizah-municipality.png'
+import universityOfHailLogo from '../assets/clients/university-of-hail.png'
 import Reveal from '../components/Reveal'
 import { pick, useSiteContent } from '../site/content'
 
@@ -25,6 +30,11 @@ const fallbackClients = [
   { name: 'بلدية محافظة الغاط', logo: alghatMunicipalityLogo },
   { name: 'بلدية حوطة سدير', logo: hawtatSudairMunicipalityLogo },
   { name: 'عميل القطاع الزراعي', logo: agricultureClientLogo },
+  { name: 'بلدية البكيرية', logo: bukayriyahMunicipalityLogo },
+  { name: 'بلدية محافظة عيون الجواء', logo: uyunAljiwaMunicipalityLogo },
+  { name: 'بلدية قبة', logo: qubbahMunicipalityLogo },
+  { name: 'بلدية محافظة عنيزة', logo: unaizahMunicipalityLogo },
+  { name: 'جامعة حائل', logo: universityOfHailLogo },
 ]
 
 const arrowButtonClass =
