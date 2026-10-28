@@ -156,7 +156,7 @@ function ContactColumn({ settings }: { settings: FooterSettings }) {
 
         <ContactRow Icon={FiMapPin}>
           <p className="text-[14px] leading-5 text-[#99a1af]">العنوان</p>
-          <p className="mt-1 max-w-[260px] text-[18px] font-bold leading-7 text-[#d1d5dc]">{settings?.address || 'بريدة - القصيم - المملكة العربية السعودية'}</p>
+          <p className="mt-1 text-[16px] min-[375px]:whitespace-nowrap font-bold leading-7 text-[#d1d5dc] sm:text-[18px]">{settings?.address || 'بريدة - القصيم - المملكة العربية السعودية'}</p>
         </ContactRow>
       </div>
     </section>
