@@ -31,10 +31,10 @@ const fallbackPhones = [
   { label: 'قسم الزراعة', value: '0508542228' },
 ]
 
-const fallbackEmail = 'info@honain.sa'
+const fallbackEmail = 'hunnain2011@yahoo.com'
 
 const fallbackRegistry = [
-  { label: 'رقم ضريبي', value: '1131021685' },
+  { label: 'رقم ضريبي', value: '311269301900003' },
   { label: 'سجل تجاري', value: '1131021685' },
 ]
 
@@ -78,7 +78,7 @@ function BrandColumn({ settings }: { settings: FooterSettings }) {
     : fallbackRegistry
 
   return (
-    <section aria-label="بيانات شركة حنين" className="flex w-full max-w-[460px] flex-col items-start gap-6">
+    <section aria-label="بيانات شركة حنين" className="flex w-full max-w-[520px] flex-col items-start gap-6">
       <img src={footerLogo} alt="Honain Contracting" className="h-[56px] w-full max-w-[392px] object-contain" loading="lazy" decoding="async" />
 
       <div className="flex flex-wrap items-center gap-6">
@@ -180,7 +180,7 @@ function ContactColumn({ settings }: { settings: FooterSettings }) {
 
         <ContactRow Icon={FiMapPin}>
           <p className="text-[14px] leading-5 text-[#99a1af]">العنوان</p>
-          <p className="mt-1 max-w-[260px] text-[18px] font-bold leading-7 text-[#d1d5dc]">{settings?.address || 'الرياض، المملكة العربية السعودية'}</p>
+          <p className="mt-1 max-w-[260px] text-[18px] font-bold leading-7 text-[#d1d5dc]">{settings?.address || 'بريدة - القصيم - المملكة العربية السعودية'}</p>
         </ContactRow>
       </div>
     </section>
@@ -208,14 +208,8 @@ function Footer() {
           <ContactColumn settings={settings} />
         </div>
 
-        <div className="mt-12 flex flex-col items-center gap-4 border-t border-white/20 py-8 text-center text-[#d1d5dc] lg:mt-[80px] lg:flex-row lg:justify-between lg:text-right">
+        <div className="mt-12 border-t border-white/20 py-8 text-center text-[#d1d5dc] lg:mt-[80px]">
           <p className="text-[16px] leading-7 sm:text-[18px]">© 2026 شركة حنين. جميع الحقوق محفوظة.</p>
-
-          <div className="flex items-center gap-6 text-[16px] leading-6">
-            <a href="#" className="transition hover:text-white">سياسة الخصوصية</a>
-            <span aria-hidden="true">|</span>
-            <a href="#" className="transition hover:text-white">الشروط والأحكام</a>
-          </div>
         </div>
       </div>
     </footer>

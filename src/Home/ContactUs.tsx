@@ -17,7 +17,7 @@ const fallbackPhones = [
   { label: 'قسم الزراعة', value: '0508542228' },
 ]
 
-const fallbackEmail = 'info@honain.sa'
+const fallbackEmail = 'hunnain2011@yahoo.com'
 const fallbackHours = ['السبت - الخميس: 8:00 ص - 5:00 م', 'الجمعة: مغلق']
 
 const formFields = [
@@ -126,7 +126,7 @@ function ContactUs() {
   const settings = useSiteContent()?.settings
   const phoneDepartments = settings?.phones?.length ? settings.phones.map(({ label, number }) => ({ label, value: number })) : fallbackPhones
   const contactEmail = settings?.email || fallbackEmail
-  const address = settings?.address || 'الرياض، المملكة العربية السعودية'
+  const address = settings?.address || 'بريدة - القصيم - المملكة العربية السعودية'
   const workingHours = settings?.working_hours?.length ? settings.working_hours : fallbackHours
   const emergencyNote = settings?.emergency_note || 'خدمة الطوارئ متاحة 24/7'
   const [submitting, setSubmitting] = useState(false)

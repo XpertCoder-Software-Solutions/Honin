@@ -5,6 +5,11 @@ import modonLogo from '../assets/clients/modon.png'
 import nationalWaterLogo from '../assets/clients/national-water-company.png'
 import riyadhMunicipalityLogo from '../assets/clients/riyadh-region-municipality.png'
 import saudiElectricityLogo from '../assets/clients/saudi-electricity-company.png'
+import qassimMunicipalityLogo from '../assets/clients/qassim-municipality.png'
+import asyahMunicipalityLogo from '../assets/clients/asyah-municipality.png'
+import alghatMunicipalityLogo from '../assets/clients/alghat-municipality.png'
+import hawtatSudairMunicipalityLogo from '../assets/clients/hawtat-sudair-municipality.png'
+import agricultureClientLogo from '../assets/clients/agriculture-client.png'
 import Reveal from '../components/Reveal'
 import { pick, useSiteContent } from '../site/content'
 
@@ -15,6 +20,11 @@ const fallbackClients = [
   { name: 'أمانة منطقة الرياض', logo: riyadhMunicipalityLogo },
   { name: 'مدن', logo: modonLogo },
   { name: 'KAFD', logo: kafdLogo },
+  { name: 'أمانة منطقة القصيم', logo: qassimMunicipalityLogo },
+  { name: 'بلدية محافظة الأسياح', logo: asyahMunicipalityLogo },
+  { name: 'بلدية محافظة الغاط', logo: alghatMunicipalityLogo },
+  { name: 'بلدية حوطة سدير', logo: hawtatSudairMunicipalityLogo },
+  { name: 'عميل القطاع الزراعي', logo: agricultureClientLogo },
 ]
 
 const arrowButtonClass =
