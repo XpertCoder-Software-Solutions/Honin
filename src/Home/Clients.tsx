@@ -20,6 +20,9 @@ import armedForcesMedicalServicesLogo from '../assets/clients/armed-forces-medic
 import qassimHealthClusterLogo from '../assets/clients/qassim-health-cluster.png'
 import qassimUniversityLogo from '../assets/clients/qassim-university.png'
 import abanatMunicipalityLogo from '../assets/clients/abanat-municipality.png'
+import nabhaniaMunicipalityLogo from '../assets/clients/nabhania-municipality.png'
+import alfuwayliqMunicipalityLogo from '../assets/clients/alfuwayliq-municipality.png'
+import albadaieMunicipalityLogo from '../assets/clients/albadaie-municipality.png'
 import Reveal from '../components/Reveal'
 import { pick, useSiteContent } from '../site/content'
 
@@ -45,6 +48,9 @@ const fallbackClients = [
   { name: 'تجمع القصيم الصحي', logo: qassimHealthClusterLogo },
   { name: 'جامعة القصيم', logo: qassimUniversityLogo },
   { name: 'بلدية محافظة أبانات', logo: abanatMunicipalityLogo },
+  { name: 'بلدية محافظة النبهانية', logo: nabhaniaMunicipalityLogo },
+  { name: 'بلدية الفويلق', logo: alfuwayliqMunicipalityLogo },
+  { name: 'بلدية محافظة البدائع', logo: albadaieMunicipalityLogo },
 ]
 
 const arrowButtonClass =

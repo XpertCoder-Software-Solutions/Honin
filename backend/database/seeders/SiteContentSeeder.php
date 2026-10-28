@@ -157,6 +157,9 @@ class SiteContentSeeder extends Seeder
             ['تجمع القصيم الصحي', 'clients/qassim-health-cluster.png'],
             ['جامعة القصيم', 'clients/qassim-university.png'],
             ['بلدية محافظة أبانات', 'clients/abanat-municipality.png'],
+            ['بلدية محافظة النبهانية', 'clients/nabhania-municipality.png'],
+            ['بلدية الفويلق', 'clients/alfuwayliq-municipality.png'],
+            ['بلدية محافظة البدائع', 'clients/albadaie-municipality.png'],
         ];
 
         foreach ($clients as $order => [$name, $logo]) {
