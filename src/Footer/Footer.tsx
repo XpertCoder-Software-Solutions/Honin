@@ -1,5 +1,4 @@
 import type { ReactNode } from 'react'
-import { FaFacebookF, FaInstagram, FaLinkedinIn, FaTwitter } from 'react-icons/fa'
 import { FiMail, FiMapPin, FiPhone } from 'react-icons/fi'
 import type { IconType } from 'react-icons'
 import footerLogo from '../assets/Footer Logo.png'
@@ -31,19 +30,11 @@ const fallbackPhones = [
   { label: 'قسم الزراعة', value: '0508542228' },
 ]
 
-const fallbackEmail = 'info@honain.sa'
+const fallbackEmail = 'hunnain2011@yahoo.com'
 
 const fallbackRegistry = [
-  { label: 'رقم ضريبي', value: '1131021685' },
+  { label: 'رقم ضريبي', value: '311269301900003' },
   { label: 'سجل تجاري', value: '1131021685' },
-]
-
-// Right → left, as in the design.
-const socialLinks: Array<{ key: 'facebook' | 'twitter' | 'instagram' | 'linkedin'; label: string; Icon: IconType }> = [
-  { key: 'facebook', label: 'Facebook', Icon: FaFacebookF },
-  { key: 'twitter', label: 'Twitter', Icon: FaTwitter },
-  { key: 'instagram', label: 'Instagram', Icon: FaInstagram },
-  { key: 'linkedin', label: 'LinkedIn', Icon: FaLinkedinIn },
 ]
 
 type FooterSettings = SiteContent['settings'] | undefined
@@ -78,7 +69,7 @@ function BrandColumn({ settings }: { settings: FooterSettings }) {
     : fallbackRegistry
 
   return (
-    <section aria-label="بيانات شركة حنين" className="flex w-full max-w-[460px] flex-col items-start gap-6">
+    <section aria-label="بيانات شركة حنين" className="flex w-full max-w-[520px] flex-col items-start gap-6">
       <img src={footerLogo} alt="Honain Contracting" className="h-[56px] w-full max-w-[392px] object-contain" loading="lazy" decoding="async" />
 
       <div className="flex flex-wrap items-center gap-6">
@@ -97,21 +88,6 @@ function BrandColumn({ settings }: { settings: FooterSettings }) {
       <p className="text-[18px] leading-[29.25px] text-[#d1d5dc]">
         شركة رائدة في مجالات المقاولات والزراعة ومكافحة الآفات بخبرة تمتد لأكثر من 40 عامًا
       </p>
-
-      <div className="flex gap-3 self-center">
-        {socialLinks.map(({ key, label, Icon }) => (
-          <a
-            key={label}
-            href={settings?.social?.[key] || '#'}
-            target={settings?.social?.[key] ? '_blank' : undefined}
-            rel="noreferrer"
-            aria-label={label}
-            className="flex h-12 w-12 items-center justify-center rounded-[14px] border border-[#cfa931]/20 bg-[#cfa931]/10 text-[#cfa931] transition duration-300 hover:-translate-y-1 hover:bg-[#cfa931] hover:text-brand"
-          >
-            <Icon size={20} aria-hidden="true" />
-          </a>
-        ))}
-      </div>
     </section>
   )
 }
@@ -180,7 +156,7 @@ function ContactColumn({ settings }: { settings: FooterSettings }) {
 
         <ContactRow Icon={FiMapPin}>
           <p className="text-[14px] leading-5 text-[#99a1af]">العنوان</p>
-          <p className="mt-1 max-w-[260px] text-[18px] font-bold leading-7 text-[#d1d5dc]">{settings?.address || 'الرياض، المملكة العربية السعودية'}</p>
+          <p className="mt-1 max-w-[260px] text-[18px] font-bold leading-7 text-[#d1d5dc]">{settings?.address || 'بريدة - القصيم - المملكة العربية السعودية'}</p>
         </ContactRow>
       </div>
     </section>
@@ -208,14 +184,8 @@ function Footer() {
           <ContactColumn settings={settings} />
         </div>
 
-        <div className="mt-12 flex flex-col items-center gap-4 border-t border-white/20 py-8 text-center text-[#d1d5dc] lg:mt-[80px] lg:flex-row lg:justify-between lg:text-right">
+        <div className="mt-12 border-t border-white/20 py-8 text-center text-[#d1d5dc] lg:mt-[80px]">
           <p className="text-[16px] leading-7 sm:text-[18px]">© 2026 شركة حنين. جميع الحقوق محفوظة.</p>
-
-          <div className="flex items-center gap-6 text-[16px] leading-6">
-            <a href="#" className="transition hover:text-white">سياسة الخصوصية</a>
-            <span aria-hidden="true">|</span>
-            <a href="#" className="transition hover:text-white">الشروط والأحكام</a>
-          </div>
         </div>
       </div>
     </footer>

@@ -70,7 +70,7 @@ class SiteContentSeeder extends Seeder
     {
         $services = [
             'construction' => ['المقاولات والأعمال المساحية', 'نقدم خدمات متكاملة في تنفيذ المشاريع الإنشائية وأعمال البنية التحتية، بالإضافة إلى جميع أعمال الرفع المساحي باستخدام أحدث التقنيات والأجهزة.', [
-                'أعمال الرفع المساحي', 'التشييد والبناء', 'تنفيذ مشاريع البنية التحتية', 'شبكات المياه والصرف الصحي', 'تصريف السيول', 'الإشراف والصيانة', 'الأعمال الكهربائية', 'تنفيذ البلوك والإنترلوك', 'تنفيذ المناقصات الحكومية',
+                'أعمال الرفع المساحي', 'التشييد والبناء', 'تنفيذ مشاريع البنية التحتية', 'شبكات المياه والصرف الصحي', 'تصريف السيول', 'الإشراف والصيانة', 'الأعمال الكهربائية', 'تنفيذ الإنترلوك', 'تنفيذ المناقصات الحكومية',
             ]],
             'landscaping' => ['الزراعة وتنسيق الحدائق', 'نقدم حلولًا متكاملة لتحويل المساحات إلى بيئات خضراء جذابة من خلال تصميم وتنفيذ مشاريع اللاند سكيب بأحدث الأساليب.', [
                 'إنشاء وتشغيل وصيانة المشاتل', 'تصميم وتنفيذ الحدائق', 'تنفيذ المخططات العامة للمشاريع', 'تصميم وتنفيذ شبكات الري', 'أعمال اللاند سكيب', 'تركيب النجيل الطبيعي والصناعي', 'النباتات الداخلية', 'الأشجار والزهور الخارجية',
@@ -142,6 +142,24 @@ class SiteContentSeeder extends Seeder
             ['أمانة منطقة الرياض', 'clients/riyadh-region-municipality.png'],
             ['مدن', 'clients/modon.png'],
             ['KAFD', 'clients/kafd.png'],
+            ['أمانة منطقة القصيم', 'clients/qassim-municipality.png'],
+            ['بلدية محافظة الأسياح', 'clients/asyah-municipality.png'],
+            ['بلدية محافظة الغاط', 'clients/alghat-municipality.png'],
+            ['بلدية حوطة سدير', 'clients/hawtat-sudair-municipality.png'],
+            ['عميل القطاع الزراعي', 'clients/agriculture-client.png'],
+            ['بلدية البكيرية', 'clients/bukayriyah-municipality.png'],
+            ['بلدية محافظة عيون الجواء', 'clients/uyun-aljiwa-municipality.png'],
+            ['بلدية قبة', 'clients/qubbah-municipality.png'],
+            ['بلدية محافظة عنيزة', 'clients/unaizah-municipality.png'],
+            ['جامعة حائل', 'clients/university-of-hail.png'],
+            ['مستشفى القصيم الوطني', 'clients/qassim-national-hospital.png'],
+            ['الخدمات الطبية للقوات المسلحة', 'clients/armed-forces-medical-services.png'],
+            ['تجمع القصيم الصحي', 'clients/qassim-health-cluster.png'],
+            ['جامعة القصيم', 'clients/qassim-university.png'],
+            ['بلدية محافظة أبانات', 'clients/abanat-municipality.png'],
+            ['بلدية محافظة النبهانية', 'clients/nabhania-municipality.png'],
+            ['بلدية الفويلق', 'clients/alfuwayliq-municipality.png'],
+            ['بلدية محافظة البدائع', 'clients/albadaie-municipality.png'],
         ];
 
         foreach ($clients as $order => [$name, $logo]) {
@@ -157,14 +175,13 @@ class SiteContentSeeder extends Seeder
                 ['label' => 'قسم المكافحة', 'number' => '0543958080'],
                 ['label' => 'قسم الزراعة', 'number' => '0508542228'],
             ],
-            'email' => 'info@honain.sa',
-            'address' => 'الرياض، المملكة العربية السعودية',
+            'email' => 'hunnain2011@yahoo.com',
+            'address' => 'بريدة - القصيم - المملكة العربية السعودية',
             'working_hours' => ['السبت - الخميس: 8:00 ص - 5:00 م', 'الجمعة: مغلق'],
             'emergency_note' => 'خدمة الطوارئ متاحة 24/7',
-            'tax_number' => '1131021685',
+            'tax_number' => '311269301900003',
             'commercial_register' => '1131021685',
-            'social' => ['facebook' => null, 'twitter' => null, 'instagram' => null, 'linkedin' => null],
-            'stats' => ['years' => 40, 'projects' => 500, 'clients' => 300],
+            'stats' => ['years' => 40, 'projects' => 300, 'clients' => 900],
         ];
 
         foreach ($settings as $key => $value) {

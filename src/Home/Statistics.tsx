@@ -5,8 +5,8 @@ import { useSiteContent } from '../site/content'
 
 const fallbackStatistics = [
   { icon: '🏆', value: 40, plus: true, label: 'سنة خبرة' },
-  { icon: '🏗️', value: 500, plus: true, label: 'مشروع منجز' },
-  { icon: '🤝', value: 300, plus: true, label: 'عميل راضٍ' },
+  { icon: '🏗️', value: 300, plus: true, label: 'مشروع منجز' },
+  { icon: '🤝', value: 900, plus: true, label: 'عميل راضٍ' },
   { icon: '⏰', value: null, plus: false, label: 'دعم مستمر' },
 ]
 
