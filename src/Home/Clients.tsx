@@ -15,6 +15,11 @@ import uyunAljiwaMunicipalityLogo from '../assets/clients/uyun-aljiwa-municipali
 import qubbahMunicipalityLogo from '../assets/clients/qubbah-municipality.png'
 import unaizahMunicipalityLogo from '../assets/clients/unaizah-municipality.png'
 import universityOfHailLogo from '../assets/clients/university-of-hail.png'
+import qassimNationalHospitalLogo from '../assets/clients/qassim-national-hospital.png'
+import armedForcesMedicalServicesLogo from '../assets/clients/armed-forces-medical-services.png'
+import qassimHealthClusterLogo from '../assets/clients/qassim-health-cluster.png'
+import qassimUniversityLogo from '../assets/clients/qassim-university.png'
+import abanatMunicipalityLogo from '../assets/clients/abanat-municipality.png'
 import Reveal from '../components/Reveal'
 import { pick, useSiteContent } from '../site/content'
 
@@ -35,6 +40,11 @@ const fallbackClients = [
   { name: 'بلدية قبة', logo: qubbahMunicipalityLogo },
   { name: 'بلدية محافظة عنيزة', logo: unaizahMunicipalityLogo },
   { name: 'جامعة حائل', logo: universityOfHailLogo },
+  { name: 'مستشفى القصيم الوطني', logo: qassimNationalHospitalLogo },
+  { name: 'الخدمات الطبية للقوات المسلحة', logo: armedForcesMedicalServicesLogo },
+  { name: 'تجمع القصيم الصحي', logo: qassimHealthClusterLogo },
+  { name: 'جامعة القصيم', logo: qassimUniversityLogo },
+  { name: 'بلدية محافظة أبانات', logo: abanatMunicipalityLogo },
 ]
 
 const arrowButtonClass =
